@@ -59,17 +59,35 @@ close.addEventListener('click', () => {
     overlay.classList.remove('show');
 });
 
-document.querySelectorAll('.menu-tab').forEach(btn => {
-    btn.addEventListener('click', function () {
-        document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        // TODO: Load rentals based on category here using this.dataset.category
+document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.menu-tab');
+    const sections = document.querySelectorAll('.category-section');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Remove active from all tabs
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Add active to clicked tab
+            this.classList.add('active');
+
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.add('d-none');
+                section.classList.remove('active-category');
+            });
+
+            // Show the section corresponding to the clicked tab
+            const targetId = this.getAttribute('href').substring(1); // e.g., 'slides'
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.remove('d-none');
+                targetSection.classList.add('active-category');
+            }
+        });
     });
 });
 
-document.querySelectorAll('.menu-tab').forEach(tab => {
-    tab.addEventListener('click', function () {
-        document.querySelectorAll('.menu-tab').forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
+

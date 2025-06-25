@@ -26,5 +26,12 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+        
     }
+
+    public function getDetailedImagePathAttribute()
+    {
+        return str_replace('simple', 'detailed', $this->image_path);
+    }
+
 }
