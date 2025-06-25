@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
+use App\Models\Category; 
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use App\Http\Controllers\OrderController;
 
 // Public route to the welcome/landing page (non-authenticated users)
 Route::get('/', function () {
-    return view('home');
+    $categories = Category::with('products')->get();
+    return view('home', compact('categories'));
 });
 
 // Dashboard route, accessible only to authenticated and verified users
@@ -55,6 +57,10 @@ Route::middleware('auth')->group(function () {
     // Routes for order management (optional, you can skip implementing the logic for now)
     Route::resource('orders', OrderController::class);
 });
+
+// web.php
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
 
 // Includes authentication routes like login, register, password reset
 require __DIR__.'/auth.php';

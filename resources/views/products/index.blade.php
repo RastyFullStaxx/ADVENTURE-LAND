@@ -1,30 +1,44 @@
-@extends('layouts.app')
+@php
+    $colorMap = [
+        'Playgrounds' => '#99CCFF',
+        'Slides' => '#8BC43F',
+        'Climbs' => '#EF4445',
+        'Ball Pits' => '#FF9900',
+        'Packages' => '#FF0099',
+    ];
+@endphp
 
-@section('content')
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Product Catalog</h2>
-        <a href="{{ route('products.create') }}" class="btn btn-primary">Add Product</a>
-    </div>
+@foreach($categories as $category)
+<section class="py-5 category-section" id="{{ Str::slug($category->name) }}"
+         style="background-color: #fff;">
+    <div class="container">
+        <!-- Category Header -->
+        <div class="text-center mb-4">
+            <h2 class="lilita" style="color: {{ $colorMap[$category->name] ?? '#333' }};">
+                {{ $category->name }}
+            </h2>
+        </div>
 
-    <div class="row">
-        @forelse($products as $product)
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    @if($product->image_path)
-                        <img src="{{ asset('storage/' . $product->image_path) }}" class="card-img-top" alt="{{ $product->name }}">
-                    @endif
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->name }}</h5>
-                        <p class="card-text text-muted">{{ $product->category->name ?? 'Uncategorized' }}</p>
-                        <p class="card-text">{{ Str::limit($product->description, 100) }}</p>
-                        <p class="card-text fw-bold">₱{{ number_format($product->price, 2) }}</p>
+        <!-- Product Cards -->
+        <div class="row justify-content-center">
+            @foreach($category->products as $product)
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card shadow text-center p-3 border-0"
+                         style="border-radius: 15px; background-color: {{ $colorMap[$category->name] }}20;">
+                        <img src="{{ asset('images/' . $product->image_path) }}"
+                             alt="{{ $product->name }}"
+                             class="card-img-top img-fluid"
+                             style="border-radius: 10px; max-height: 220px; object-fit: contain;">
+
+                        <div class="card-body">
+                            <h5 class="card-title lilita text-dark">{{ $product->name }}</h5>
+                            <p class="fw-bold text-dark">PHP {{ number_format($product->price) }}</p>
+                            <a href="#" class="btn btn-outline-dark btn-sm fw-bold">View Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @empty
-            <p>No products found.</p>
-        @endforelse
+            @endforeach
+        </div>
     </div>
-</div>
-@endsection
+</section>
+@endforeach

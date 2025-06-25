@@ -6,6 +6,10 @@ body {
     overflow-x: hidden;
 }
 
+.lilita {
+    font-family: 'Lilita One', cursive;
+}
+
 /* 🔷 Glassy sky blue background */
 .bg-glass-blue {
     backdrop-filter: blur(10px); /* Enables blur effect */
@@ -101,7 +105,7 @@ body {
 
 /* 🧭 Header bar custom styles */
 #headerBar {
-    height: 100px; /* Taller nav bar */
+    height: 160px; /* Taller nav bar */
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     display: flex;
@@ -113,14 +117,14 @@ body {
 #headerBar .nav-logo {
     height: 90px;              /* Increase logo height */
     margin-left: 6rem;         /* Add space from left edge */
-    margin-top: 3rem;         
+    margin-top: 0rem;         
 }
 
 /* 🍔 Burger menu size */
 #headerBar .burger-menu {
     height: 70px;              /* Bigger burger icon */
-    margin-top: 1.5rem;  
-    margin-right: 1.5rem;  
+    margin-top: 0rem;  
+    margin-right: 3rem;  
 }
 
 /* 📞 Bottom bar tweaks to center buttons */
@@ -180,7 +184,7 @@ body {
 .menu-links {
     position: absolute;
     top: 50%;
-    right: 4%;
+    right: 2%;
     transform: translateY(-50%);
     z-index: 3;
     display: flex;
@@ -194,7 +198,7 @@ body {
 .menu-item {
     color: #0074BC;
     font-family: 'Lilita One', cursive;
-    font-size: 24px;
+    font-size: 50px;
     text-decoration: none;
     transition: transform 0.2s;
 }
@@ -206,7 +210,7 @@ body {
 .menu-contact-btn {
     margin-top: 40px;
     width: 160px;
-    align-self: flex-end;
+    align-self: center;
 }
 
 .menu-cloud {
@@ -218,6 +222,13 @@ body {
     z-index: 1;
 
     animation: floatCloud 6s ease-in-out infinite;
+}
+
+.white-section {
+    background-color: #FFFFFF;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* 🌀 Wiggle animation for main logo */
@@ -273,6 +284,92 @@ body {
         opacity: 0;
         backdrop-filter: blur(0px);
     }
+}
+
+.menu-tab {
+    font-family: 'Lilita One', cursive;
+    text-align: center;
+    padding: 10px 40px;
+    border-radius: 12px;
+    border: none;
+    min-width: 140px;
+    line-height: 1.2;
+    font-size: 3rem;
+    color: #6CA8D9; /* Default muted color */
+    background-color: transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Add left border divider to all except first */
+.menu-tab:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background-color: #0066cc63;
+}
+/* Subtext */
+.menu-tab small {
+    font-weight: normal;
+    font-size: 0.75rem;
+    display: block;
+    color: #6CA8D9;
+}
+
+/* Active States */
+.menu-tab.active.playgrounds {
+    background-color: #99CCFF;
+    color: white;
+}
+.menu-tab.active.playgrounds small {
+    color: white;
+}
+
+.menu-tab.active.slides {
+    background-color: #8BC43F;
+    color: white;
+}
+.menu-tab.active.slides small {
+    color: white;
+}
+
+.menu-tab.active.climbs {
+    background-color: #EF4445;
+    color: white;
+}
+.menu-tab.active.climbs small {
+    color: white;
+}
+
+.menu-tab.active.ballpits {
+    background-color: #FF9900;
+    color: white;
+}
+.menu-tab.active.ballpits small {
+    color: white;
+}
+
+.menu-tab.active.packages {
+    background-color: #FF0099;
+    color: white;
+}
+.menu-tab.active.packages small {
+    color: white;
+}
+
+.menu-tab:hover,
+.menu-tab.active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.cloud-divider img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 /* Keyframes: minimal, slow bounce */

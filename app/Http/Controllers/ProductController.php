@@ -15,11 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // Fetch all products with their related category
-        $products = Product::with('category')->get();
+        // Fetch all categories with their associated products
+        $categories = \App\Models\Category::with('products')->get();
 
-        // Pass products to the view
-        return view('products.index', compact('products'));
+        return view('products.index', compact('categories'));
     }
 
     /**
