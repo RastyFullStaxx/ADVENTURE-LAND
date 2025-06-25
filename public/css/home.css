@@ -1,0 +1,308 @@
+/* 🌤️ Base Background */
+body {
+    background-color: #99CCFF; /* Sky blue base */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* 🔷 Glassy sky blue background */
+.bg-glass-blue {
+    backdrop-filter: blur(10px); /* Enables blur effect */
+    background-color: rgba(153, 204, 255, 0.6); /* Sky blue with transparency */
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+    width: 100vw; /* Full width bar */
+}
+
+/* 📐 Main Section Layout */
+.main-section {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    padding-bottom: 120px;
+}
+
+/* Container shared styles */
+.cloud-layer-1, .cloud-layer-2 {
+    position: absolute;
+    width: 300%; /* ✅ Extra width to fit 3 images */
+    height: 57%;
+    overflow: hidden;
+    display: flex;
+    bottom: 140px;
+    z-index: 1;
+}
+
+.cloud-layer-2 {
+    bottom: -20px;
+    z-index: 2;
+}
+
+/* Movement */
+.cloud-layer-1 {
+    animation: scrollRightLoop 40s linear infinite; /* ✅ FIXED loop animation */
+}
+
+.cloud-layer-2 {
+    animation: scrollLeftLoop 60s linear infinite;
+}
+
+/* Cloud image visuals */
+.cloud {
+    flex: 1 0 auto;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+    border: none;
+    animation: cloudBounce 3s ease-in-out infinite; /* ✅ only vertical bounce */
+}
+
+/* Fix overlap for seamless tiles */
+.cloud-layer-1 .cloud {
+    transform: scaleX(1.01);
+    margin-right: -2px;
+}
+
+/* 🌥️ Transparent Cloud Bounce (Layer 1) */
+.cloud-bounce-soft {
+    animation: cloudBounceSoft 3s ease-in-out infinite;
+}
+
+/* ☁️ White Cloud Bounce (Layer 2) */
+.cloud-bounce-playful {
+    animation: cloudBouncePlayful 2s ease-in-out infinite;
+}
+
+/* 🎯 Centered logo container */
+.logo-section {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    width: 100%;             /* Full width */
+    margin-top: 80px;        /* Push it down visually (adjust as needed) */
+    pointer-events: none;    /* Prevent interactions if needed */
+}
+
+/* 🖼️ Logo sizing */
+.main-logo {
+    width: 100%;             /* Make it responsive to container */
+    max-width: 1100px;        /* Sizing  */
+    height: auto;            /* Maintain aspect ratio */
+    animation: logoWiggle 12.5s ease-in-out infinite;
+}
+
+/* 🧭 Header bar custom styles */
+#headerBar {
+    height: 100px; /* Taller nav bar */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 🎨 Nav logo size + spacing */
+#headerBar .nav-logo {
+    height: 90px;              /* Increase logo height */
+    margin-left: 6rem;         /* Add space from left edge */
+    margin-top: 3rem;         
+}
+
+/* 🍔 Burger menu size */
+#headerBar .burger-menu {
+    height: 70px;              /* Bigger burger icon */
+    margin-top: 1.5rem;  
+    margin-right: 1.5rem;  
+}
+
+/* 📞 Bottom bar tweaks to center buttons */
+#bottomBar {
+    height: 100px;             /* Thicker bar */
+    display: flex;
+    align-items: center;       /* ✅ Vertically center content */
+    justify-content: center;   /* ✅ Horizontally center group */
+    gap: 5rem;
+}
+
+/* 🧷 Optional: size constraint on buttons */
+#bottomBar img {
+    height: 55px;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100vw; /* Start hidden to right */
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size:22px;
+    transition: right 0.5s ease;
+}
+
+.menu-overlay.show {
+    right: 0;
+}
+
+.menu-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: auto;
+    z-index: 1;
+}
+
+.menu-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    height: 30px;
+    width: auto;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.menu-links {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* Centers items inside the flex column */
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.menu-item {
+    color: #0074BC;
+    font-family: 'Lilita One', cursive;
+    font-size: 24px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.menu-item:hover {
+    transform: scale(1.1);
+}
+
+.menu-contact-btn {
+    margin-top: 40px;
+    width: 160px;
+    align-self: flex-end;
+}
+
+.menu-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: calc(100vh + 60px);
+    width: 50vh;
+    z-index: 1;
+
+    animation: floatCloud 6s ease-in-out infinite;
+}
+
+/* 🌀 Wiggle animation for main logo */
+@keyframes logoWiggle {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(-3deg); }
+    30%  { transform: rotate(3deg); }
+    45%  { transform: rotate(-2deg); }
+    60%  { transform: rotate(2deg); }
+    75%  { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* 👆 Hover: subtle pop effect */
+.button-hover {
+    transition: transform 0.2s ease;
+}
+.button-hover:hover {
+    transform: scale(1.08);
+}
+
+/* 👉 Click: quick press animation */
+.button-click {
+    transition: transform 0.05s ease;
+}
+.button-click:active {
+    transform: scale(0.94);
+}
+
+.button-hover:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+/* 🌫️ Glass Blur Intro Overlay */
+#pageIntroOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(18px);
+    z-index: 3000;
+    animation: fadeOutBlur 3s ease forwards;
+    pointer-events: none; /* Prevent blocking clicks */
+}
+
+/* 🌀 Fade out blur effect */
+@keyframes fadeOutBlur {
+    0% {
+        opacity: 1;
+        backdrop-filter: blur(18px);
+    }
+    100% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+}
+
+/* Keyframes: minimal, slow bounce */
+@keyframes cloudBounceSoft {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(50px); } /* noticeable but soft lift */
+}
+
+/* Keyframes: faster, higher bounce */
+@keyframes cloudBouncePlayful {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(30px); }
+}
+
+/* Horizontal infinite scroll */
+@keyframes scrollLeftLoop {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(66.66%); } /* ✅ FULL 3-tile scroll leftward */
+}
+
+@keyframes scrollRightLoop {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(66.66%); } /* ✅ Scroll rightward by 2 tiles */
+}
+
+@keyframes floatCloud {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-60px); /* or -5px for subtler bounce */
+    }
+}
