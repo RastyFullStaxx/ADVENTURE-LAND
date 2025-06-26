@@ -214,10 +214,53 @@
         </section>
     @endforeach
 
-
-    <!-- CLOUD DIVIDER -->
+    <!-- INVERTED WHITE CLOUD DIVIDER -->
     <div class="cloud-divider">
         <img src="{{ asset('images/imgWhiteInvertedCloud.png') }}" alt="Cloud Divider" class="img-fluid w-100">
+    </div>
+
+    <!-- COMMON QUESTIONS SECTION -->
+    <section class="common-questions-section text-center py-5">
+        <div class="container">
+
+            <!-- Header Image -->
+            <div class="common-questions-header mb-3">
+                <img src="{{ asset('images/imgCommonQuestionsHeader.png') }}" alt="Common Questions Header" class="img-fluid">
+            </div>
+
+            <!-- Sub-links -->
+            <div class="common-questions-links mb-4">
+                <a href="#">View more FAQs</a>
+                <a href="#">Ask us anything</a>
+            </div>
+
+            <!-- FAQ Buttons in 2-per-row layout -->
+            <div class="row gx-4 gy-3 justify-content-center common-questions-buttons">
+                @php
+                    $questions = [
+                        'How do I book an inflatable?',
+                        'What happens if it rains?',
+                        'What areas do you service?',
+                        'How long is the rental duration?',
+                        'Do you require a deposit?',
+                        'Is there a delivery/setup fee?',
+                    ];
+                @endphp
+
+                @foreach($questions as $question)
+                    <div class="col-12 col-md-6">
+                        <button class="faq-button btn fw-bold w-100">
+                            {{ $question }}
+                        </button>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- WHITE CLOUD DIVIDER -->                   
+    <div class="cloud-divider">
+        <img src="{{ asset('images/imgWhiteLayerClouds.png') }}" alt="Cloud Divider" class="img-fluid w-100" style="margin-top: 2rem">
     </div>
 
     <!-- FLOATING CONTACT FOOTER -->

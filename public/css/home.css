@@ -439,7 +439,6 @@ body {
     margin-bottom: 12px;
 }
 
-
 .menu-tab:hover,
 .menu-tab.active {
     transform: translateY(-2px);
@@ -483,3 +482,58 @@ body {
         transform: translateY(-60px); /* or -5px for subtler bounce */
     }
 }
+
+/***********************************************************************
+ * COMMON QUESTIONS SECTION 
+ ***********************************************************************/
+/* Whole section background */
+
+.common-questions-section {
+    background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;
+    /* background: sets the image */
+    /* no-repeat: avoids tiling */
+    /* center center: aligns image */
+    /* cover: scales image to fill */
+}
+
+/* Header image (the "COMMON QUESTIONS" graphic) */
+.common-questions-header img {
+    max-width: 880px; /* limit size */
+    width: 100%; /* responsive */
+}
+
+/* Link styling for "View more FAQs" and "Ask us anything" */
+.common-questions-links a {
+    font-family: 'Jost', sans-serif;
+    font-weight: 600; /* semi-bold */
+    color: #0066CC; /* brand blue */
+    text-decoration: none;
+    margin: 0 1rem; /* spacing between links */
+    font-size: 1.5rem;
+}
+
+/* FAQ buttons container is Bootstrap row — no custom needed here */
+
+/* FAQ button styles */
+.faq-button {
+    background-color: #FFFFFF; /* white background */
+    color: #71A4D7; /* sky blue text */
+    border: none; /* remove default border */
+    border-radius: 25px; /* fully rounded edges */
+    padding: 1.5rem 2rem; /* vertical | horizontal space inside */
+    font-size: 1.5rem; /* button text size */
+    font-family: 'Lilita One', cursive; /* button font */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* soft shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* smooth hover animation */
+    width: 100%; /* fill the column (required for 2-column layout) */
+    margin: 5px;
+}
+
+/* Hover effect for FAQ buttons */
+.faq-button:hover {
+    background-color: #71A4D7;         /* accent blue background */
+    color: #FFFFFF;                    /* white text on hover */
+    box-shadow: none;                  /* optional: remove shadow on hover */
+    transform: none;                   /* no movement */
+}
+
