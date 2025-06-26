@@ -1,3 +1,7 @@
+/***********************************************************************
+ * LANDING SECTION
+ ***********************************************************************/
+
 /* 🌤️ Base Background */
 body {
     background-color: #99CCFF; /* Sky blue base */
@@ -82,6 +86,10 @@ body {
     animation: cloudBouncePlayful 2s ease-in-out infinite;
 }
 
+/***********************************************************************
+ * NAV BAR SECTION
+ ***********************************************************************/
+
 /* 🎯 Centered logo container */
 .logo-section {
     position: relative;
@@ -127,6 +135,10 @@ body {
     margin-right: 3rem;  
 }
 
+/***********************************************************************
+ * BOTTOM BAR SECTION STYLES
+ ***********************************************************************/
+
 /* 📞 Bottom bar tweaks to center buttons */
 #bottomBar {
     height: 100px;             /* Thicker bar */
@@ -140,6 +152,10 @@ body {
 #bottomBar img {
     height: 55px;
 }
+
+/***********************************************************************
+ * HAMBURGER SECTION
+ ***********************************************************************/
 
 .menu-overlay {
     position: fixed;
@@ -198,7 +214,7 @@ body {
 .menu-item {
     color: #0074BC;
     font-family: 'Lilita One', cursive;
-    font-size: 40px;
+    font-size: 35px;
     text-decoration: none;
     transition: transform 0.2s;
 }
@@ -537,3 +553,126 @@ body {
     transform: none;                   /* no movement */
 }
 
+/***********************************************************************
+ * STAR CLIENTS SECTION
+ ***********************************************************************/
+
+ .star-clients-section {
+    background-color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Floating stars positioned to the edges */
+.star-floating-left,
+.star-floating-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 900px;
+    max-width: 15%; /* ✅ Responsive width based on screen */
+    height: auto;   /* Maintain aspect ratio */
+    z-index: 0;
+    animation: levitate 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.star-floating-left { left: 0; }
+.star-floating-right { right: 0; }
+
+@keyframes levitate {
+    0%   { transform: translateY(-50%) translateY(0); }
+    50%  { transform: translateY(-50%) translateY(-15px); }
+    100% { transform: translateY(-50%) translateY(0); }
+}
+
+/* Carousel wrapper */
+.starClientCarousel {
+    width: 80% !important;
+    margin: auto;
+    padding: 50px;
+}
+
+/* Carousel inner box (DO NOT apply flex here!) */
+.star-carousel-box {
+    width: 100%;
+    height: 820px;
+    /* ❌ Removed display: flex, align-items, justify-content */
+    /* Let Bootstrap handle the slide layout */
+}
+
+/* Each item inside carousel should take full space */
+.star-carousel-box .carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+/* Frame around each image to center the image nicely */
+.gallery-frame {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Image itself */
+.star-client-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Carousel arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #FFD700;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+
+/***********************************************************************
+ * FOOTER SECTION STYLES
+ ***********************************************************************/
+
+ .footer-section {
+    background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;
+    color: #0066CC;                /* Default blue text/icons */
+    font-family: 'Lilita One', cursive;
+}
+
+/* Logo styling */
+.footer-logo {
+    max-height: 200px;
+}
+
+/* Navigation text links */
+.footer-links a {
+    font-size: 1.4rem;
+    color: #0066CC;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 0.7;
+}
+
+/* Social/contact icons */
+.footer-icon {
+    width: 38px;
+    height: 38px;
+    transition: transform 0.3s ease;
+}
+
+.footer-icon:hover {
+    transform: scale(1.4);
+}

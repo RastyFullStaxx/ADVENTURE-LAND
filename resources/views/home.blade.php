@@ -216,7 +216,7 @@
 
     <!-- INVERTED WHITE CLOUD DIVIDER -->
     <div class="cloud-divider">
-        <img src="{{ asset('images/imgWhiteInvertedCloud.png') }}" alt="Cloud Divider" class="img-fluid w-100">
+        <img src="{{ asset('images/imgWhiteInvertedCloud.png') }}" alt="Cloud Divider" style="background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;" class="img-fluid w-100">
     </div>
 
     <!-- COMMON QUESTIONS SECTION -->
@@ -260,8 +260,98 @@
 
     <!-- WHITE CLOUD DIVIDER -->                   
     <div class="cloud-divider">
-        <img src="{{ asset('images/imgWhiteLayerClouds.png') }}" alt="Cloud Divider" class="img-fluid w-100" style="margin-top: 2rem">
+        <img src="{{ asset('images/imgWhiteLayerClouds.png') }}" alt="Cloud Divider" style="background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;" class="img-fluid w-100" style="margin-top: 2rem">
     </div>
+
+    <!-- STAR CLIENT SECTION -->
+    <section class="star-clients-section position-relative py-5 text-center" style="margin-top: -60px;">
+
+        <!-- Floating Stars (now outside the container) -->
+        <img src="{{ asset('images/imgLeftStars.png') }}" class="star-floating-left img-fluid" alt="Left Stars">
+        <img src="{{ asset('images/imgRightStars.png') }}" class="star-floating-right img-fluid" alt="Right Stars">
+
+        <div class="container position-relative">
+
+            <!-- Header Image -->
+            <div class="mb-4">
+                <img src="{{ asset('images/imgOurStarClientsheader.png') }}" alt="Our Star Clients" class="img-fluid" style="max-width: 700px; margin-bottom: 50px;">
+            </div>
+
+            <!-- Image Carousel -->
+            <div id="starClientCarousel" class="carousel slide starClientCarousel" data-bs-ride="carousel">
+                <div class="carousel-inner star-carousel-box shadow rounded-4 bg-white">
+
+                    @php
+                        $starClients = [
+                            'starclient1.png',
+                            'starclient2.png',
+                            'starclient4.png',
+                            'startclient3.png',
+                        ];
+                    @endphp
+
+                    @foreach($starClients as $index => $clientImage)
+                        <div class="carousel-item @if($index == 0) active @endif">
+                            <div class="gallery-frame">
+                                <img src="{{ asset('images/starclients/' . $clientImage) }}"
+                                    class="star-client-img"
+                                    alt="Star Client {{ $index + 1 }}">
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#starClientCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#starClientCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+     <!-- INVERTED WHITE CLOUD DIVIDER -->
+     <div class="cloud-divider">
+        <img src="{{ asset('images/imgWhiteInvertedCloud.png') }}" alt="Cloud Divider" class="img-fluid w-100" style="background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;">
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer-section text-center text-dark">
+
+    <div class="container py-4">
+        <div class="row align-items-center justify-content-between">
+
+            <!-- Logo (Left) -->
+            <div class="col-auto">
+                <img src="{{ asset('images/imgMainLogo.png') }}" alt="Kael's Adventure Land Logo" class="footer-logo img-fluid">
+            </div>
+
+            <!-- Links (Center) -->
+            <div class="col text-center footer-links">
+                <a href="#playgrounds">Playgrounds</a>
+                <a href="#slides">Slides</a>
+                <a href="#climbs">Climbs</a>
+                <a href="#ball-pits">Ball Pits</a>
+                <a href="#packages">Packages</a>
+                <a href="#about">About Us</a>
+            </div>
+
+            <!-- Icons (Right) -->
+            <div class="col-auto d-flex gap-3 footer-icons">
+                <a href="#" target="_blank"><img src="{{ asset('images/icoFacebook.png') }}" alt="Facebook" class="footer-icon"></a>
+                <a href="tel:123456789"><img src="{{ asset('images/icoCallUs.png') }}" alt="Call Us" class="footer-icon"></a>
+                <a href="#" target="_blank"><img src="{{ asset('images/icoInstagram.png') }}" alt="Instagram" class="footer-icon"></a>
+            </div>
+        </div>
+    </div>
+
+    </footer>
+
 
     <!-- FLOATING CONTACT FOOTER -->
     <div id="bottomBar" class="fixed-bottom d-flex justify-content-center gap-3 py-3 bg-glass-blue">
