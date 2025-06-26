@@ -61,6 +61,16 @@ Route::middleware('auth')->group(function () {
 // web.php
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // Includes authentication routes like login, register, password reset
 require __DIR__.'/auth.php';
+
+Route::view('/aboutus', 'aboutus')->name('aboutus');
+Route::view('/safetyrules', 'safetyrules')->name('safetyrules');
+Route::view('/faqs', 'faqs')->name('faqs');
+Route::view('/contactus', 'contactus')->name('contactus');
+
+Route::get('/category/{slug}', [ProductController::class, 'redirectToFirstProduct']);
+
+

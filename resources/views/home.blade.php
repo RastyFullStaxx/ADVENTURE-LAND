@@ -186,7 +186,7 @@
                                         </div>
 
                                         <!-- View Details -->
-                                        <a href="#"
+                                        <a href="{{ route('products.show', $product->id) }}"
                                         class="btn fw-bold"
                                         style="
                                             background-color: {{ $secondaryColor }};

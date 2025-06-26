@@ -1,0 +1,342 @@
+/***********************************************************************
+ * FONT IMPORT
+ ***********************************************************************/
+ @font-face {
+    font-family: 'TimKid Medium';
+    src: url('/fonts/TimKid.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/***********************************************************************
+ * BODY & MAIN LAYOUT
+ ***********************************************************************/
+body.details-page {
+    font-family: 'TimKid Medium', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.details-fullscreen {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/***********************************************************************
+ * LEFT & RIGHT COLUMNS
+ ***********************************************************************/
+.details-left,
+.details-right {
+    height: 100%;
+    padding: 2rem;
+}
+
+/* Light accent background for image area */
+.details-left {
+    background-color: var(--accent-color);  /* <--- tweak accent here */
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.details-right {
+    background-color: var(--main-color);   /* <--- dark primary theme */
+    width: 40%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+/***********************************************************************
+ * HEADER ELEMENTS: Back, Next, Logo, Category Name
+ ***********************************************************************/
+.btn-nav {
+    height: 40px;
+}
+.btn-nav:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+/* Centered header with logo and category */
+.details-header-logo {
+    height: 120px; /* adjust as needed */
+    width: auto;
+}
+
+.details-header-title {
+    font-size: 2.8rem;
+    color: var(--main-color);
+}
+
+/***********************************************************************
+ * PRODUCT IMAGE
+ ***********************************************************************/
+ .details-product-image {
+    max-height: 920px; /* slightly larger */
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 20px;
+    box-shadow: none; /* removed glassy backdrop */
+    background: none;
+}
+
+
+/***********************************************************************
+ * PRICE BADGE & MENU ICON
+ ***********************************************************************/
+.price-badge {
+    background-color: white;
+    color: var(--main-color); /* text colored to primary */
+    font-weight: bold;
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    padding: 0.5rem 1.5rem;
+}
+
+/***********************************************************************
+ * LOCATION TEXT
+ ***********************************************************************/
+.details-location {
+    color: white;
+    font-size: 1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+/***********************************************************************
+ * INFO BLOCKS (Product, Dimensions, Inclusions)
+ ***********************************************************************/
+
+ .details-info-block {
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Product name + dimensions block (Blue fill, light border) */
+.details-info-name {
+    background-color: var(--main-color);
+    border: 4px solid var(--accent-color); /* border = lighter */
+    color: #FFFFFF; /* product name = white */
+}
+
+/* Dimensions text inside */
+.details-info-name .label,
+.details-info-name .value {
+    color: var(--accent-color); /* dimension text = lighter theme */
+}
+
+/* Inclusions box (light background) */
+.details-info-primary {
+    background-color: var(--accent-color);
+    border: 4px solid var(--main-color);
+    color: var(--main-color); /* inclusion text = main theme */
+}
+
+.dimension-label {
+    font-size: 2.25rem; /* or use 20px */
+    font-weight: bold;
+}
+
+
+/***********************************************************************
+ * Combined Product Info Block (Name + Dimensions)
+ ***********************************************************************/
+ .details-info-dual {
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px solid var(--accent-color);
+}
+
+/* Top section: Product Name */
+.details-info-dual .product-name-area {
+    background-color: var(--main-color);
+    color: #ffffff;
+    padding: 1rem 1.5rem;
+}
+
+/* Divider between name and dimension */
+.details-info-dual .product-name-area {
+    border-bottom: 3px solid var(--accent-color);
+}
+
+/* Bottom section: Dimensions */
+.details-info-dual .product-dimension-area {
+    background-color: var(--accent-color);
+    color: var(--main-color);
+    padding: 1rem 1.5rem;
+}
+
+.details-info-primary {
+    border: 6px solid var(--accent-color);
+    margin-bottom: 80px;
+}
+
+.inclusions-list li {
+    margin-bottom: 0.6rem; /* increase this to control spacing */
+    line-height: 1.4;
+}
+
+
+/***********************************************************************
+ * CONTACT / SOCIAL SECTION
+ ***********************************************************************/
+.details-contact-icon {
+    height: 32px;
+    margin-right: 0.5rem;
+}
+
+.details-contact-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+}
+
+/***********************************************************************
+ * ARROW BUTTON STYLE
+ ***********************************************************************/
+ .arrow-link {
+    font-size: 3.5rem;
+    text-decoration: none;
+    margin-top: -15px;
+    margin-bottom: -10px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.arrow-link:hover {
+    transform: scale(1.15);
+}
+
+.arrow-link.disabled {
+    pointer-events: none;
+    color: #ccc !important;
+    opacity: 0.5;
+    transform: none;
+}
+
+/***********************************************************************
+ * HAMBURGER SECTION
+ ***********************************************************************/
+
+ .menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100vw; /* Start hidden to right */
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size:22px;
+    transition: right 0.5s ease;
+}
+
+.menu-overlay.show {
+    right: 0;
+}
+
+.menu-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: auto;
+    z-index: 1;
+}
+
+.menu-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    height: 30px;
+    width: auto;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.menu-links {
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* Centers items inside the flex column */
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.menu-item {
+    color: #0074BC;
+    font-family: 'Lilita One', cursive;
+    font-size: 35px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.menu-item:hover {
+    transform: scale(1.1);
+}
+
+.menu-contact-btn {
+    margin-top: 40px;
+    width: 160px;
+    align-self: center;
+}
+
+.menu-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: calc(100vh + 60px);
+    width: 50vh;
+    z-index: 1;
+
+    animation: floatCloud 6s ease-in-out infinite;
+}
+
+@keyframes floatCloud {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-60px); /* or -5px for subtler bounce */
+    }
+}
+
+.menu-tab:hover,
+.menu-tab.active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.burger-menu {
+    z-index: 3000;
+    position: relative;
+}
+
+.burger-menu.disabled-click {
+    pointer-events: none;
+    opacity: 0.6; /* optional visual cue */
+}
+
+
+

@@ -15,7 +15,12 @@ class Product extends Model
         'description',
         'price',
         'inventory_quantity',
-        'image_path'
+        'image_path',
+        'inclusions' // 🔧 Include this if you want to mass assign it
+    ];
+
+    protected $casts = [
+        'inclusions' => 'array', // 🔧 Cast as array
     ];
 
     public function category()
@@ -26,12 +31,10 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
-        
     }
 
     public function getDetailedImagePathAttribute()
     {
         return str_replace('simple', 'detailed', $this->image_path);
     }
-
 }
