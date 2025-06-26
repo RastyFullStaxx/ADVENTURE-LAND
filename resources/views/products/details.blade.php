@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{ $product->name }} | Kael's Adventure Land</title>
@@ -21,59 +22,94 @@
         }
     </style>
 </head>
-<body class="details-page">
 
+<body class="details-page">
 <div class="details-fullscreen">
 
     {{-- LEFT COLUMN --}}
     <div class="details-left">
         <div class="d-flex justify-content-between align-items-center w-100 mb-3">
-        {{-- Back Arrow --}}
-        <a href="{{ $isFirst ? '#' : route('products.show', $prevProduct->id) }}"
-        class="arrow-link {{ $isFirst ? 'disabled' : '' }}"
-        style="color: var(--main-color);">
-            &#x3C; {{-- Unicode for "<" --}}
-        </a>
+            {{-- Back Arrow --}}
+            <a href="{{ $isFirst ? '#' : route('products.show', $prevProduct->id) }}"
+               class="arrow-link {{ $isFirst ? 'disabled' : '' }}"
+               style="color: var(--main-color);">
+                &#x3C;
+            </a>
 
-        {{-- Next Arrow --}}
-        <a href="{{ $isLast ? '#' : route('products.show', $nextProduct->id) }}"
-        class="arrow-link {{ $isLast ? 'disabled' : '' }}"
-        style="color: var(--main-color);">
-            &#x3E; {{-- Unicode for ">" --}}
-        </a>
-    </div>
+            {{-- Next Arrow --}}
+            <a href="{{ $isLast ? '#' : route('products.show', $nextProduct->id) }}"
+               class="arrow-link {{ $isLast ? 'disabled' : '' }}"
+               style="color: var(--main-color);">
+                &#x3E;
+            </a>
+        </div>
 
-    <div class="d-flex align-items-center justify-content-center gap-3 mb-4">
-        <img src="{{ asset('images/imgViewDetailsMainLogo.png') }}" alt="Main Logo" class="details-header-logo">
-        <h1 class="details-header-title lilita mb-0">{{ $categoryName }}</h1>
-    </div>
+        <div class="d-flex align-items-center justify-content-center gap-3 mb-4">
+        <a href="{{ route('home') }}" class="logo-link">
+            <img src="{{ asset('images/imgViewDetailsMainLogo.png') }}" alt="Main Logo" class="details-header-logo">
+        </a>
+            <h1 class="details-header-title lilita mb-0">{{ $categoryName }}</h1>
+        </div>
+
         <img src="{{ asset('images/' . $product->image_path) }}"
-            class="details-product-image mx-auto" alt="{{ $product->name }}">
+             class="details-product-image mx-auto" alt="{{ $product->name }}">
     </div>
 
     {{-- RIGHT COLUMN --}}
     <div class="details-right">
         <div class="d-flex justify-content-between align-items-start mb-3">
-        <div class="price-badge">PHP {{ number_format($product->price) }}</div>
+            <div class="price-badge">PHP {{ number_format($product->price) }}</div>
             <div class="burger-menu" role="button" style="cursor: pointer; z-index: 3000;">
-                <img src="{{ asset('images/imgMenuBurger.png') }}" alt="Menu" height="70">
+                <img src="{{ asset('images/imgMenuBurger.png') }}" alt="Menu" class="btn-nav">
             </div>
         </div>
 
-        <div class="d-flex align-items-start mb-3">
-            <img src="{{ asset('images/icoLocation.png') }}" class="details-contact-icon">
-            <span>Batangas, Laguna, Cavite, Quezon, Metro Manila & Rizal Area</span>
-        </div>
+        {{-- Location and Delivery Fee Section --}}
+        @if($product->category->slug === 'packages')
+            @php
+                $twoThousandPackages = [
+                    'Giant Double Slide + Bounce House',
+                    'Obstacle Castle + Play House',
+                    'Obstacle Combo',
+                    'Combo Set 1'
+                ];
+                $extraFee = in_array($product->name, $twoThousandPackages) ? 2000 : 1000;
+            @endphp
+            <div class="d-flex align-items-start mb-3">
+                <img src="{{ asset('images/icoLocation.png') }}" class="details-contact-icon">
+                <span>
+                    Batangas Area<br>
+                    Manila, Laguna, Cavite & Rizal Area<br>
+                    + Additional PHP {{ number_format($extraFee) }}
+                </span>
+            </div>
+        @else
+            <div class="d-flex align-items-start mb-3">
+                <img src="{{ asset('images/icoLocation.png') }}" class="details-contact-icon">
+                <span>
+                    Batangas, Laguna, Cavite, Quezon, Metro Manila & Rizal Area
+                </span>
+            </div>
+        @endif
 
-        {{-- Product name and dimensions --}}
-        <!-- Product Info Combined Block -->
+        {{-- Product name and dimensions and units --}}
         <div class="details-info-block details-info-dual">
             <div class="product-name-area">
                 <h2 class="lilita mb-0">{{ $product->name }}</h2>
             </div>
+
             <div class="product-dimension-area">
+            @if($product->category->slug === 'packages')
+                <p class="fw-bold mb-1" style="font-size: 24px;">Units</p>
+                <ul class="list-unstyled mb-0">
+                    @foreach(explode("\n", $product->units) as $unit)
+                        <li><b>✓</b> {{ ltrim($unit, '- ') }}</li>
+                    @endforeach
+                </ul>
+            @else
                 <p class="fw-bold mb-1" style="font-size: 24px;">Dimensions</p>
                 <p class="mb-0">{{ $product->dimension_long }}</p>
+            @endif
             </div>
         </div>
 
@@ -83,7 +119,7 @@
             <h4 class="fw-bold">Inclusions</h4>
             <ul class="list-unstyled mt-2 mb-0">
                 @foreach($product->inclusions as $item)
-                    <li>- {{ $item }}</li>
+                    <li><b>✓</b> {{ $item }}</li>
                 @endforeach
             </ul>
         </div>
@@ -130,5 +166,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/details.js') }}"></script>
 </body>
-
 </html>

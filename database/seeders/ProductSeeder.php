@@ -55,16 +55,40 @@ class ProductSeeder extends Seeder
             ['Packages', 'Rainbow Bounce Set', 'Rainbow Slide & Bounce House.', 15000, '14ft x 21ft x 11ft', 'package/simple/imgRainbowSlide-BounceHouse-RollerCoaster_Simple.png'],
         ];
 
+        $twoThousandPackages = [
+            'Giant Double Slide + Bounce House',
+            'Combo Set 1',
+            'Obstacle Combo',
+            'Obstacle Castle + Play House'
+        ];
+        
+        $unitsMap = [
+            'Play Set A' => "Bounce\nSlide\nPlayhouse\nRoller Coaster",
+            'Combo Set 1' => "Bounce House\nGiant Double Slide\nRoller Coaster",
+            'Combo Set 2' => "Bounce\nDouble Slide\nRoller Coaster",
+            'Combo Set 3' => "Bounce House\nVertical Rush\nRoller Coaster",
+            'Wall Climb Combo' => "Giant Wall\nBounce House\nRoller Coaster",
+            'Mini Climb Combo' => "Mini Wall Climb\nPlay House\nRoller Coaster",
+            'Obstacle Combo' => "Obstacle Castle\nPlay House\nRoller Coaster",
+            'Rainbow Bounce Set' => "Rainbow Slide\nBounce House\nRoller Coaster",
+        ];
+        
         foreach ($products as [$cat, $name, $desc, $price, $dimension, $image]) {
+            $isPackage = $cat === 'Packages';
+        
             Product::create([
                 'category_id' => $categories[$cat],
                 'name' => $name,
                 'description' => $desc,
                 'price' => $price,
-                'dimension_long' => $dimension,
+                'dimension_long' => $isPackage ? null : $dimension,
+                'units' => $isPackage ? ($unitsMap[$name] ?? null) : null,
                 'inventory_quantity' => 10,
-                'image_path' => $image
+                'image_path' => $image,
+                'extra_fee' => in_array($name, $twoThousandPackages) ? 2000 : 1000
             ]);
         }
+        
+                 
     }
 }

@@ -58,7 +58,7 @@ body.details-page {
  * HEADER ELEMENTS: Back, Next, Logo, Category Name
  ***********************************************************************/
 .btn-nav {
-    height: 40px;
+    height: 70px;
 }
 .btn-nav:hover {
     transform: scale(1.05);
@@ -74,6 +74,34 @@ body.details-page {
 .details-header-title {
     font-size: 2.8rem;
     color: var(--main-color);
+}
+
+.logo-link {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.logo-link:hover {
+    transform: scale(1.1) rotate(-2deg);
+}
+
+.details-header-logo {
+    animation: floatSway 1s ease-in-out infinite;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-link:hover .details-header-logo {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+@keyframes floatSway {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /***********************************************************************

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Models\Category; 
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,8 @@ Route::view('/contactus', 'contactus')->name('contactus');
 
 Route::get('/category/{slug}', [ProductController::class, 'redirectToFirstProduct']);
 
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
