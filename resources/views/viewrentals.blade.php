@@ -43,9 +43,9 @@
             <img src="{{ asset('images/imgWhiteLayerClouds.png') }}" class="cloud cloud-bounce-playful">
         </div>
 
-        <div class="logo-section text-center">
+        {{-- <div class="logo-section text-center">
             <img src="{{ asset('images/imgMainLogo.png') }}" alt="Main Logo" class="main-logo img-fluid">
-        </div>
+        </div> --}}
     </main>
 
     <!-- MENU OVERLAY -->
@@ -68,15 +68,13 @@
 
     <!-- WHITE SECTION WITH TAGLINE AND MENU -->
     <section class="white-section text-center py-5 px-3">
-        <p class="lead lilita text-dark mb-3" style="font-size: 1.5rem;">
+        {{-- <p class="lead lilita text-dark mb-3" style="font-size: 1.5rem;">
             Jump, Slide, and Climb. Adventure Delivered to Your Doorstep!
-        </p>
-        <a href="{{ route('viewrentals') }}">
-            <img src="{{ asset('images/btnViewRentals.png') }}" alt="View Rentals"
-                class="mb-4 button-hover button-click"
-                style="cursor: pointer; width: 240px; max-width: 100%;">
-        </a>
+        </p> --}}
 
+        {{-- <img src="{{ asset('images/btnViewRentals.png') }}" alt="View Rentals"
+             class="mb-4 button-hover button-click"
+             style="cursor: pointer; width: 240px; max-width: 100%;"> --}}
 
         <div class="d-flex justify-content-center flex-wrap gap-3">
             <a href="#playgrounds" class="btn menu-tab playgrounds lilita active">
@@ -222,106 +220,6 @@
         <img src="{{ asset('images/imgWhiteInvertedCloud.png') }}" alt="Cloud Divider" style="background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;" class="img-fluid w-100">
     </div>
 
-    <!-- COMMON QUESTIONS SECTION -->
-    <section class="common-questions-section text-center py-5">
-        <div class="container">
-
-            <!-- Header Image -->
-            <div class="common-questions-header mb-3">
-                <img src="{{ asset('images/imgCommonQuestionsHeader.png') }}" alt="Common Questions Header" class="img-fluid">
-            </div>
-
-            <!-- Sub-links -->
-            <div class="common-questions-links mb-4">
-                <a href="#">View more FAQs</a>
-                <a href="#">Ask us anything</a>
-            </div>
-
-            <!-- FAQ Buttons in 2-per-row layout -->
-            <div class="row gx-4 gy-3 justify-content-center common-questions-buttons">
-                @php
-                    $questions = [
-                        'How do I book an inflatable?',
-                        'What happens if it rains?',
-                        'What areas do you service?',
-                        'How long is the rental duration?',
-                        'Do you require a deposit?',
-                        'Is there a delivery/setup fee?',
-                    ];
-                @endphp
-
-                @foreach($questions as $question)
-                    <div class="col-12 col-md-6">
-                        <button class="faq-button btn fw-bold w-100">
-                            {{ $question }}
-                        </button>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- WHITE CLOUD DIVIDER -->                   
-    <div class="cloud-divider">
-        <img src="{{ asset('images/imgWhiteLayerClouds.png') }}" alt="Cloud Divider" style="background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;" class="img-fluid w-100" style="margin-top: 2rem">
-    </div>
-
-    <!-- STAR CLIENT SECTION -->
-    <section class="star-clients-section position-relative py-5 text-center" style="margin-top: -60px;">
-
-        <!-- Floating Stars (now outside the container) -->
-        <img src="{{ asset('images/imgLeftStars.png') }}" class="star-floating-left img-fluid" alt="Left Stars">
-        <img src="{{ asset('images/imgRightStars.png') }}" class="star-floating-right img-fluid" alt="Right Stars">
-
-        <div class="container position-relative">
-
-            <!-- Header Image -->
-            <div class="mb-4">
-                <img src="{{ asset('images/imgOurStarClientsheader.png') }}" alt="Our Star Clients" class="img-fluid" style="max-width: 700px; margin-bottom: 50px;">
-            </div>
-
-            <!-- Image Carousel -->
-            <div id="starClientCarousel" class="carousel slide starClientCarousel" data-bs-ride="carousel">
-                <div class="carousel-inner star-carousel-box shadow rounded-4 bg-white">
-
-                    @php
-                        $starClients = [
-                            'starclient1.png',
-                            'starclient2.png',
-                            'starclient4.png',
-                            'startclient3.png',
-                        ];
-                    @endphp
-
-                    @foreach($starClients as $index => $clientImage)
-                        <div class="carousel-item @if($index == 0) active @endif">
-                            <div class="gallery-frame">
-                                <img src="{{ asset('images/starclients/' . $clientImage) }}"
-                                    class="star-client-img"
-                                    alt="Star Client {{ $index + 1 }}">
-                            </div>
-                        </div>
-                    @endforeach
-
-                </div>
-
-                <!-- Carousel Controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#starClientCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#starClientCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-     <!-- INVERTED WHITE CLOUD DIVIDER -->
-     <div class="cloud-divider">
-        <img src="{{ asset('images/imgWhiteInvertedCloud.png') }}" alt="Cloud Divider" class="img-fluid w-100" style="background: url('../images/imgCommonQuestionsBackground.png') no-repeat center center / cover;">
-    </div>
 
     <!-- FOOTER SECTION -->
     <footer class="footer-section text-center text-dark">

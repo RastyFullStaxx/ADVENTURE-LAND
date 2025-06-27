@@ -11,6 +11,8 @@ use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminUserController; // ADD THIS LINE
 use App\Http\Middleware\RoleMiddleware;
+use App\Models\Category;
+
 
 // ==========================================================
 // PUBLIC ROUTES
@@ -24,6 +26,19 @@ Route::view('/aboutus', 'aboutus')->name('aboutus');
 Route::view('/safetyrules', 'safetyrules')->name('safetyrules');
 Route::view('/faqs', 'faqs')->name('faqs');
 Route::view('/contactus', 'contactus')->name('contactus');
+// Home Route
+Route::get('/', function () {
+    $categories = Category::all();
+    return view('home', compact('categories'));
+})->name('home');
+
+// View Rentals Route
+Route::get('/viewrentals', function () {
+    $categories = Category::all();
+    return view('viewrentals', compact('categories'));
+})->name('viewrentals');
+
+
 
 // Route to redirect to first product in a category
 Route::get('/category/{slug}', [ProductController::class, 'redirectToFirstProduct']);
