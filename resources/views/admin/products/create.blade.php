@@ -31,11 +31,16 @@
         <textarea name="description" rows="3" class="form-control"></textarea>
     </div>
 
-    <!-- Price -->
-    <div class="col-md-4">
-        <label class="form-label fw-bold">Price (₱)</label>
-        <input type="number" name="price" class="form-control" step="0.01" required>
-    </div>
+    <!-- Price (Admin Only) -->
+    @if(auth()->user()->role === 'admin')
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Price (₱)</label>
+            <input type="number" name="price" class="form-control" step="0.01" required>
+        </div>
+    @else
+        <!-- Hidden field for product-manager to set default price -->
+        <input type="hidden" name="price" value="0">
+    @endif
 
     <!-- Inventory -->
     <div class="col-md-4">
@@ -43,11 +48,16 @@
         <input type="number" name="inventory_quantity" class="form-control" required>
     </div>
 
-    <!-- Extra Fee -->
-    <div class="col-md-4">
-        <label class="form-label fw-bold">Extra Fee (Optional)</label>
-        <input type="number" name="extra_fee" class="form-control" step="0.01">
-    </div>
+    <!-- Extra Fee (Admin Only) -->
+    @if(auth()->user()->role === 'admin')
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Extra Fee (Optional)</label>
+            <input type="number" name="extra_fee" class="form-control" step="0.01">
+        </div>
+    @else
+        <!-- Hidden field for product-manager to set default extra fee -->
+        <input type="hidden" name="extra_fee" value="0">
+    @endif
 
     <!-- Dimensions -->
     <div class="col-md-6" id="dimensionField">
