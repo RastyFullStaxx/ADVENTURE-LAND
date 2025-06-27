@@ -14,6 +14,7 @@
                 confirmButtonColor: '#0074BC'
             });
         </script>
+        
     @endif
 
     <div class="text-end mb-3">
