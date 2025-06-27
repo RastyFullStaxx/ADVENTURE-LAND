@@ -46,7 +46,12 @@
                 <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Dashboard</a></li>
                 <li class="nav-item mb-2"><a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a></li>
                 <li class="nav-item mb-2"><a href="{{ route('admin.categories.index') }}" class="nav-link text-white">Categories</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Users</a></li>
+                {{-- If the user is an admin, show the Users link
+                    else hide it
+                 --}}
+                @if(Auth::user()->role === 'admin')
+                    <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Users</a></li>
+                @endif  
             </ul>
         </div>
 
