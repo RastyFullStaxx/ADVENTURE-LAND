@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\AdminUserController; // ADD THIS LINE
 use App\Http\Middleware\RoleMiddleware;
 
 // ==========================================================
@@ -84,11 +85,9 @@ Route::prefix('admin')
     // Category CRUD (admin + product-manager)
     Route::resource('categories', AdminCategoryController::class);
 
-    // User management (admin only)
-    Route::get('/users', function() {
-        // Add user management logic here
-        return view('admin.users'); // You'll need to create this view
-    })->middleware(RoleMiddleware::class . ':admin')->name('users');
+    // User management (admin only) - REPLACE THE OLD ROUTE WITH THIS:
+    Route::resource('users', AdminUserController::class)
+        ->middleware(RoleMiddleware::class . ':admin');
 
     // Other future admin-only routes can go here
 });

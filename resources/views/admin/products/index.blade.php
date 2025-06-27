@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Products | Admin Panel')
+@section('title', 'Users | Admin Panel')
 
 @section('content')
     <h2 class="mb-4">Manage Products</h2>
