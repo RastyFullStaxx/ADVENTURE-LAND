@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ActivityLog;
 
 class AdminProductController extends Controller
 {
@@ -50,7 +51,14 @@ class AdminProductController extends Controller
             $validated['image_path'] = $imageName;
         }
 
-        Product::create($validated);
+        $product = Product::create($validated);
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => 'Added Product',
+            'subject_type' => 'Product',
+            'subject_id' => $product->id,
+        ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product added successfully!');
     }
@@ -93,6 +101,13 @@ class AdminProductController extends Controller
 
         $product->update($validated);
 
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => 'Updated Product',
+            'subject_type' => 'Product',
+            'subject_id' => $product->id,
+        ]);
+
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully!');
     }
 
@@ -103,6 +118,13 @@ class AdminProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => 'Deleted Product',
+            'subject_type' => 'Product',
+            'subject_id' => $product->id,
+        ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully!');
     }

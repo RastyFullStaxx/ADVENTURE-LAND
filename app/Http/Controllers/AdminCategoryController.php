@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\ActivityLog;
 
 class AdminCategoryController extends Controller
 {
@@ -34,7 +35,15 @@ class AdminCategoryController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        Category::create($validated);
+        $category = Category::create($validated);
+
+        // Log the activity
+        ActivityLog::create([
+            'user_id'     => auth()->id(),
+            'action'      => 'Added Category',
+            'subject_type'=> 'Category',
+            'subject_id'  => $category->id,
+        ]);
 
         return redirect()->route('admin.categories.index')
                          ->with('success', 'Category added successfully!');
@@ -63,6 +72,14 @@ class AdminCategoryController extends Controller
 
         $category->update($validated);
 
+        // Log the activity
+        ActivityLog::create([
+            'user_id'     => auth()->id(),
+            'action'      => 'Updated Category',
+            'subject_type'=> 'Category',
+            'subject_id'  => $category->id,
+        ]);
+
         return redirect()->route('admin.categories.index')
                          ->with('success', 'Category updated successfully!');
     }
@@ -73,7 +90,16 @@ class AdminCategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
+        $categoryId = $category->id;
         $category->delete();
+
+        // Log the activity
+        ActivityLog::create([
+            'user_id'     => auth()->id(),
+            'action'      => 'Deleted Category',
+            'subject_type'=> 'Category',
+            'subject_id'  => $categoryId,
+        ]);
 
         return redirect()->route('admin.categories.index')
                          ->with('success', 'Category deleted successfully!');

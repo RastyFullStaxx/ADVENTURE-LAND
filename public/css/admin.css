@@ -1,74 +1,278 @@
 /************************************************************************
- * LAYOUT CONTAINER FOR ADMIN PANEL
+ * GENERAL BODY
  ************************************************************************/
- #adminPanel {
-    min-height: 100vh; /* Full vertical height of screen */
-}
-
 body {
     font-family: 'Lolita One', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
+
+
 /************************************************************************
- * SIDEBAR SETTINGS
+ * PAGE LAYOUT
+ ************************************************************************/
+#adminPanel {
+    display: flex;
+    padding-top: 80px; /* offset for fixed navbar */
+}
+
+
+
+/************************************************************************
+ * NAVBAR
+ ************************************************************************/
+.navbar {
+    height: 80px;
+    background-color: #0074BC;
+    padding: 0 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-family: 'TimKid Medium', sans-serif;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.navbar-img-right {
+    height: 60px;
+    margin-right: 10px;
+}
+
+.navlogo {
+    height: 85px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+
+
+/************************************************************************
+ * SIDEBAR FIXED
  ************************************************************************/
 .sidebar {
-    width: 180px; /* 👉 Adjust this to control sidebar width */
-    min-height: 100vh; /* Keeps it full height */
-    background-color: #0074BC; /* Your custom blue palette color */
+    width: 220px;
+    background-color: #0074BC;
+    font-family: 'Lolita One', sans-serif;
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    z-index: 999;
 }
 
+
+
 /************************************************************************
- * SIDEBAR TITLE STYLING
+ * SIDEBAR TITLE
  ************************************************************************/
 .sidebar h4 {
-    font-family: 'Lolita One', sans-serif;
     color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
-/************************************************************************
- * SIDEBAR LINKS (Nav Items)
- ************************************************************************/
-.sidebar .nav-link {
-    font-weight: 500; /* Medium weight */
-    transition: background 0.3s; /* Smooth hover effect */
-    text-align: start;
-    font-family: 'Lolita One', sans-serif;
-}
+
 
 /************************************************************************
- * SIDEBAR LINK HOVER EFFECT
+ * SIDEBAR NAV LINKS
  ************************************************************************/
-.sidebar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.15); /* Slight white glow */
-    border-radius: 5px; /* Rounded edges on hover */
+.sidebar .nav-link {
+    display: block;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.6rem;
+    color: white;
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+    background-color: #e6f2ff;
+    color: #003366;
+    border-color: #e6f2ff;
+}
+
+
+
+/************************************************************************
+ * BOTTOM SIDEBAR: USER INFO, LOGOUT, VIEW WEBSITE
+ ************************************************************************/
+.sidebar .logout-section {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.sidebar .user-role {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #FFD700; /* gold */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sidebar .user-name {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.sidebar .btn-outline-light,
+.sidebar .btn-secondary {
+    width: 100%;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-bottom: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar .btn-outline-light {
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.sidebar .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #0074BC;
+}
+
+.sidebar .btn-secondary {
+    background-color: #ffffff;
+    color: #0074BC;
+    border: 2px solid #ffffff;
+}
+
+.sidebar .btn-secondary:hover {
+    background-color: #e6f2ff;
+    color: #003366;
+    border-color: #e6f2ff;
+}
+
+
 
 /************************************************************************
  * MAIN CONTENT AREA
  ************************************************************************/
 .main-content {
-    background-color: #f8f9fa; /* Light gray background */
-    padding: 2rem; /* Optional: move this to the blade if needed */
+    background-color: #f8f9fa;
+    padding: 2rem;
+    margin-left: 220px;
+    flex-grow: 1;
+    min-height: 100vh;
 }
 
-/************************************************************************
- * MAIN CONTENT HEADINGS
- ************************************************************************/
 .main-content h2 {
     font-family: 'Lolita One', sans-serif;
-    color: #004085; /* Dark navy for strong section titles */
+    color: #004085;
+    font-size: 1.75rem;
 }
 
 /************************************************************************
- * NAVBAR (Modify in Blade HTML or add CSS class)
+ * ADMIN TABLE STYLES
  ************************************************************************/
-.navbar {
-    height: 80px;           
-    background-color: #0074BC;
+ .table {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 116, 188, 0.2);
 }
 
-.navbar-brand {
-    font-family: 'TimKid Medium', sans-serif;
+.table th {
+    background-color: #0074BC;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
 }
+
+.table td {
+    background-color: #f2f9ff;
+    color: #003366;
+    vertical-align: middle;
+}
+
+.table td:first-child {
+    font-weight: 600;
+}
+
+/************************************************************************
+ * ADMIN BUTTON STYLES
+ ************************************************************************/
+.btn-primary,
+.btn-success,
+.btn-danger,
+.btn-outline-light {
+    border-radius: 25px;
+    font-weight: bold;
+    padding: 6px 16px;
+}
+
+.btn-primary {
+    background-color: #0074BC;
+    border-color: #0074BC;
+}
+
+.btn-primary:hover {
+    background-color: #005fa3;
+    border-color: #005fa3;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #bd2130;
+    border-color: #b21f2d;
+}
+
+/************************************************************************
+ * SWEETALERT OVERRIDES
+ ************************************************************************/
+.swal2-popup {
+    border-radius: 16px !important;
+    font-family: 'Lilita One', cursive !important;
+}
+
+.swal2-confirm {
+    background-color: #0074BC !important;
+}
+
+.swal2-cancel {
+    background-color: #6c757d !important;
+}
+

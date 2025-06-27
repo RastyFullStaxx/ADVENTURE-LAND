@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class, // Only after CategorySeeder
         ]);
+
+        $this->call(ActivityLogSeeder::class);
         
     }
 }
