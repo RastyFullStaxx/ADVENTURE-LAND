@@ -46,11 +46,6 @@
     height: 30px;
 }
 
-.social-link:hover {
-    transform: scale(1.05);
-    text-decoration: underline;
-}
-
 .lilita {
     font-family: 'Lilita One', cursive;
 }
@@ -163,6 +158,32 @@
     animation: floatCloud 6s ease-in-out infinite;
 }
 
+@keyframes verticalFloat {
+    0%   { transform: translateX(-50%) translateY(0); }
+    50%  { transform: translateX(-50%) translateY(-50px); }
+    100% { transform: translateX(-50%) translateY(0); }
+}
+
+.vertical-cloud-bg {
+    animation: verticalFloat 3s ease-in-out infinite;
+}
+
+.white-section {
+    background-color: #FFFFFF;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes floatCloud {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-60px); /* or -5px for subtler bounce */
+    }
+}
+
 /* 👆 Hover: subtle pop effect */
 .button-hover {
     transition: transform 0.2s ease;
@@ -184,40 +205,67 @@
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
-.white-section {
-    background-color: #FFFFFF;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+/***********************************************************************
+ * RULES SECTION LAYOUT
+ ***********************************************************************/
+.rules-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+    z-index: 1;
 }
 
-@keyframes floatCloud {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-60px); /* or -5px for subtler bounce */
-    }
+.vertical-cloud-bg {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 120%;
+    width: 70%;
+    z-index: 0;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    width: 100%;
+}
+
+.header-img {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.rules-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
 }
 
 /***********************************************************************
  * RESPONSIVE ADJUSTMENTS
  ***********************************************************************/
 @media (max-width: 768px) {
-    .contact-section h1 {
-        font-size: 2rem;
+    #headerBar {
+        width: calc(100% - 30px);
+        left: 15px;
+        right: 15px;
     }
 
-    .contact-box {
+    .header-img {
         max-width: 90%;
     }
 
-    .social-icon {
-        width: 24px;
-        height: 24px;
-    }
-
-    .menu-item {
-        font-size: 1.25rem;
+    .content-wrapper {
+        max-width: 95%;
     }
 }
