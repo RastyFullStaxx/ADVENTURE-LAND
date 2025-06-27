@@ -10,8 +10,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Middleware\RoleMiddleware;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // ==========================================================
 // PUBLIC ROUTES
@@ -61,7 +59,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // ==========================================================
-// ADMIN ROUTES (Protected by RoleMiddleware directly)
+// ADMIN ROUTES (Protected by Role Middleware)
 // ==========================================================
 
 Route::prefix('admin')
@@ -81,12 +79,10 @@ Route::prefix('admin')
     Route::resource('categories', AdminCategoryController::class)
         ->middleware(RoleMiddleware::class . ':admin');
 
-    // User Management (admin only)
-    Route::resource('users', AdminUserController::class)
-        ->only(['index', 'edit', 'update'])
-        ->middleware(RoleMiddleware::class . ':admin');
+    // Other future admin-only routes can go here
 });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+
 
 require __DIR__.'/auth.php';
