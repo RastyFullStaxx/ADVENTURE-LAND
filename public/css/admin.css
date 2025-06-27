@@ -1,0 +1,74 @@
+/************************************************************************
+ * LAYOUT CONTAINER FOR ADMIN PANEL
+ ************************************************************************/
+ #adminPanel {
+    min-height: 100vh; /* Full vertical height of screen */
+}
+
+body {
+    font-family: 'Lolita One', sans-serif;
+}
+
+/************************************************************************
+ * SIDEBAR SETTINGS
+ ************************************************************************/
+.sidebar {
+    width: 180px; /* 👉 Adjust this to control sidebar width */
+    min-height: 100vh; /* Keeps it full height */
+    background-color: #0074BC; /* Your custom blue palette color */
+}
+
+/************************************************************************
+ * SIDEBAR TITLE STYLING
+ ************************************************************************/
+.sidebar h4 {
+    font-family: 'Lolita One', sans-serif;
+    color: #ffffff;
+    text-align: center;
+}
+
+/************************************************************************
+ * SIDEBAR LINKS (Nav Items)
+ ************************************************************************/
+.sidebar .nav-link {
+    font-weight: 500; /* Medium weight */
+    transition: background 0.3s; /* Smooth hover effect */
+    text-align: start;
+    font-family: 'Lolita One', sans-serif;
+}
+
+/************************************************************************
+ * SIDEBAR LINK HOVER EFFECT
+ ************************************************************************/
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* Slight white glow */
+    border-radius: 5px; /* Rounded edges on hover */
+}
+
+/************************************************************************
+ * MAIN CONTENT AREA
+ ************************************************************************/
+.main-content {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 2rem; /* Optional: move this to the blade if needed */
+}
+
+/************************************************************************
+ * MAIN CONTENT HEADINGS
+ ************************************************************************/
+.main-content h2 {
+    font-family: 'Lolita One', sans-serif;
+    color: #004085; /* Dark navy for strong section titles */
+}
+
+/************************************************************************
+ * NAVBAR (Modify in Blade HTML or add CSS class)
+ ************************************************************************/
+.navbar {
+    height: 80px;           
+    background-color: #0074BC;
+}
+
+.navbar-brand {
+    font-family: 'TimKid Medium', sans-serif;
+}

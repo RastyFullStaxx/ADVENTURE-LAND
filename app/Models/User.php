@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // ✅ Add this line
     ];
 
     /**
@@ -44,5 +45,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // ✅ Optional: Add role helper methods
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isProductManager(): bool
+    {
+        return $this->role === 'product-manager';
     }
 }

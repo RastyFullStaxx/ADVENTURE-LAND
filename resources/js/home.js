@@ -21,3 +21,4 @@ function resetIdleTimer() {
 document.addEventListener('mousemove', resetIdleTimer);
 document.addEventListener('scroll', resetIdleTimer);
 resetIdleTimer();
+

@@ -149,6 +149,7 @@
         <img src="{{ asset('images/imgMenuCloud.png') }}" class="menu-cloud">
         <img src="{{ asset('images/imgMenuClose.png') }}" alt="Close Menu" class="menu-close button-hover button-click">
         <div class="menu-links">
+            <a href="#" class="menu-item">Home</a>
             <a href="#playgrounds" class="menu-item">Playgrounds</a>
             <a href="#slides" class="menu-item">Slides</a>
             <a href="#climbs" class="menu-item">Climbs</a>

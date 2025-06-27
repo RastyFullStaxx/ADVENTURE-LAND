@@ -5,77 +5,73 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
-use App\Models\Category; 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminCategoryController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file defines all browser-accessible routes in the application.
-| These routes are loaded by the RouteServiceProvider and assigned to the "web" middleware group.
-|
-*/
+// ==========================================================
+// PUBLIC ROUTES
+// ==========================================================
 
-// Public route to the welcome/landing page (non-authenticated users)
-Route::get('/', function () {
-    $categories = Category::with('products')->get();
-    return view('home', compact('categories'));
-});
+// Landing page with product categories
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Dashboard route, accessible only to authenticated and verified users
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-// Routes grouped under "auth" middleware (must be logged in)
-Route::middleware('auth')->group(function () {
-
-    // Profile routes (edit/update/delete account)
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    /*
-    |--------------------------------------------------------------------------
-    | Product Catalog Routes
-    |--------------------------------------------------------------------------
-    */
-
-    // Full CRUD routes for managing products
-    Route::resource('products', ProductController::class);
-
-    // Full CRUD routes for managing categories
-    Route::resource('categories', CategoryController::class);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Order Management (Future Feature)
-    |--------------------------------------------------------------------------
-    */
-
-    // Routes for order management (optional, you can skip implementing the logic for now)
-    Route::resource('orders', OrderController::class);
-});
-
-// web.php
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-
-// Includes authentication routes like login, register, password reset
-require __DIR__.'/auth.php';
-
+// Static pages (About Us, Safety Rules, FAQs, Contact Us)
 Route::view('/aboutus', 'aboutus')->name('aboutus');
 Route::view('/safetyrules', 'safetyrules')->name('safetyrules');
 Route::view('/faqs', 'faqs')->name('faqs');
 Route::view('/contactus', 'contactus')->name('contactus');
 
+// Route to redirect to first product in a category
 Route::get('/category/{slug}', [ProductController::class, 'redirectToFirstProduct']);
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Public product viewing
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// ==========================================================
+// DASHBOARD (Authenticated Users Only)
+// ==========================================================
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// ==========================================================
+// AUTH ROUTES
+// ==========================================================
+Route::middleware('auth')->group(function () {
+
+    // Profile Management
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Product CRUD (non-admin version)
+    Route::resource('products', ProductController::class)->except(['show', 'index']);
+
+    // Category CRUD (non-admin version)
+    Route::resource('categories', CategoryController::class);
+
+    // Order Management (optional/future)
+    Route::resource('orders', OrderController::class);
+});
+
+// ==========================================================
+// ADMIN ROUTES (Protected by Role Middleware)
+// ==========================================================
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,product-manager'])->group(function () {
+
+    // Admin Dashboard (admin only)
+    Route::get('/', [AdminController::class, 'index'])->name('index')->middleware('role:admin');
+
+    // Product CRUD (admin + product-manager)
+    Route::resource('products', AdminProductController::class)->except(['show']);
+
+    // Category CRUD (admin only)
+    Route::resource('categories', AdminCategoryController::class)->middleware('role:admin');
+
+    // Other future admin-only routes (e.g., user management) can go here
+});
+
+require __DIR__.'/auth.php';

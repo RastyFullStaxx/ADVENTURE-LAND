@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     const overlay = document.getElementById('menuOverlay');
     const menu = document.querySelector('.burger-menu');
     const close = document.querySelector('.menu-close');
     const menuItems = document.querySelectorAll('#menuOverlay .menu-item');
+    const tabs = document.querySelectorAll('.menu-tab');
+    const sections = document.querySelectorAll('.category-section');
 
     // Toggle overlay
     if (menu && overlay && close) {
@@ -25,25 +28,46 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             const target = this.textContent.trim().toLowerCase();
+
+            if (target === 'home') {
+                window.location.href = "/";
+                return;
+            }            
+
             const isCategory = ['playgrounds', 'slides', 'climbs', 'ball pits', 'packages'].includes(target);
 
             if (isCategory) {
                 const slug = target.replace(/\s+/g, '-');
-                window.location.href = `/category/${slug}`;
-            } else {
-                let route = '';
-                if (target === 'about us') route = '/aboutus';
-                if (target === 'safety rules') route = '/safetyrules';
-                if (target === 'faqs') route = '/faqs';
-                if (target === 'contact us') route = '/contactus';
+                const tab = document.querySelector(`.menu-tab[href="#${slug}"]`);
+                const section = document.getElementById(slug);
 
-                if (route) {
-                    window.location.href = route;
+                if (tab) {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
+
+                if (section) {
+                    sections.forEach(sec => {
+                        sec.classList.add('d-none');
+                        sec.classList.remove('active-category');
+                    });
+                    section.classList.remove('d-none');
+                    section.classList.add('active-category');
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                overlay.classList.remove('show');
+            } else {
+                let routeName = '';
+                if (target === 'about us') routeName = '/aboutus';
+                if (target === 'safety rules') routeName = '/safetyrules';
+                if (target === 'faqs') routeName = '/faqs';
+
+                if (routeName) {
+                    window.location.href = routeName;
                 }
             }
-
-            overlay.classList.remove('show');
-            menu.classList.remove('disabled-click');
         });
     });
+
 });
