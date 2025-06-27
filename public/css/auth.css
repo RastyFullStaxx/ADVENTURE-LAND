@@ -1,0 +1,53 @@
+/***********************************************************************
+ * LOG IN BLADE
+ ***********************************************************************/
+
+body {
+    background: linear-gradient(to bottom, #aee3f9, #ffffff);
+    font-family: 'TimKid Medium', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-card {
+    background: #ffffff;
+    border: 3px solid #003566;
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.login-logo {
+    display: block;
+    margin: 0 auto 30px;
+    width: 250px;
+}
+
+.btn-custom {
+    background-color: #003566;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.btn-custom:hover {
+    background-color: #005fa3;
+}
+
+.form-label {
+    color: #003566;
+    font-weight: bold;
+}
+
+.text-link {
+    color: #003566;
+}
+
+.text-link:hover {
+    color: #005fa3;
+}

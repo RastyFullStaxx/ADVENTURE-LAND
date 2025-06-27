@@ -61,6 +61,7 @@
             <a href="#" class="menu-item">About Us</a>
             <a href="#" class="menu-item">Safety Rules</a>
             <a href="#" class="menu-item">FAQs</a>
+            <a href="{{ route('login') }}" class="menu-item">Log In</a>
             <img src="{{ asset('images/btnMenuContactUs.png') }}" class="menu-contact-btn button-hover button-click" alt="Contact Us">
         </div>
     </div>

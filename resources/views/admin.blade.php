@@ -24,15 +24,25 @@
     <!-- ========================================================
          NAVBAR
          ======================================================== -->
-    <nav class="navbar navbar-expand-lg px-4" style="background-color: #0074BC;">
-        <a class="navbar-brand text-white" href="#">
-            <img src="{{ asset('images/imgViewDetailsMainLogo.png') }}" alt="Logo" height="40">
-            Adventure Land Admin
-        </a>
-        <div class="ms-auto">
-            <a href="{{ route('home') }}" class="btn btn-light btn-sm">← Back to Home</a>
-        </div>
-    </nav>
+         <nav class="navbar navbar-expand-lg px-4" style="background-color: #0074BC;">
+            <a class="navbar-brand text-white d-flex align-items-center gap-2" href="#">
+                <img src="{{ asset('images/imgViewDetailsMainLogo.png') }}" alt="Logo" height="40">
+                Adventure Land Admin
+            </a>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <span class="text-white fw-bold">
+                    {{ Auth::user()->role === 'admin' ? 'Admin' : 'Product Manager' }} ({{ Auth::user()->name }})
+                </span>
+                
+                <img src="{{ asset('images/default-profile.png') }}" alt="Profile" class="rounded-circle" width="35" height="35">
+                
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>
+                </form>
+            </div>
+        </nav>
 
     <!-- ========================================================
          ADMIN PANEL CONTAINER
@@ -56,7 +66,9 @@
              MAIN CONTENT AREA
              ================================================ -->
         <div class="flex-grow-1 p-4 main-content">
-            <h2 class="mb-4">Welcome, Admin</h2>
+        <h2 class="mb-4">
+            Welcome, {{ ucfirst(Auth::user()->role) }} {{ Str::before(Auth::user()->name, ' ') }}
+        </h2>
             <div class="alert alert-info">This panel will let you add, edit, and delete products and categories.</div>
         </div>
     </div>

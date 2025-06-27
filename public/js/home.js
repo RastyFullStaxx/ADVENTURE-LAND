@@ -64,24 +64,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     menuItems.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
-
             const target = this.textContent.trim().toLowerCase();
             const isCategory = ['playgrounds', 'slides', 'climbs', 'ball pits', 'packages'].includes(target);
-
+    
             if (isCategory) {
-                // Convert to slug (e.g., "ball pits" → "ball-pits")
+                e.preventDefault();
+    
                 const slug = target.replace(/\s+/g, '-');
                 const tab = document.querySelector(`.menu-tab[href="#${slug}"]`);
                 const section = document.getElementById(slug);
-
-                // Switch active tab
+    
                 if (tab) {
                     tabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                 }
-
-                // Show correct section
+    
                 if (section) {
                     sections.forEach(sec => {
                         sec.classList.add('d-none');
@@ -91,21 +88,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     section.classList.add('active-category');
                     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-
+    
                 overlay.classList.remove('show');
-            } else {
-                // Route to the corresponding Blade page
-                let routeName = '';
-                if (target === 'about us') routeName = '/aboutus';
-                if (target === 'safety rules') routeName = '/safetyrules';
-                if (target === 'faqs') routeName = '/faqs';
-
-                if (routeName) {
-                    window.location.href = routeName;
-                }
+    
+            } else if (target === 'about us') {
+                e.preventDefault();
+                window.location.href = '/aboutus';
+            } else if (target === 'safety rules') {
+                e.preventDefault();
+                window.location.href = '/safetyrules';
+            } else if (target === 'faqs') {
+                e.preventDefault();
+                window.location.href = '/faqs';
+            } else if (target === 'log in') {
+                // Do NOT prevent default – allow real <a href="{{ route('login') }}"> to work
+                overlay.classList.remove('show'); // optional: close menu
             }
         });
-    });
+    });    
 
     if (contactBtn) {
         contactBtn.addEventListener('click', () => {
