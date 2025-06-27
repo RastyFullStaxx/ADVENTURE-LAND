@@ -8,6 +8,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin'); // Must match: resources/views/admin.blade.php
+        return view('admin.admin'); // This will show your admin.blade.php
     }
 }

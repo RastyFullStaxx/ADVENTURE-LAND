@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel – Adventure Land</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -52,16 +53,27 @@
         <!-- ================================================
              SIDEBAR
              ================================================ -->
-        <div class="text-white p-3 sidebar">
-            <h4 class="mb-4">Manage</h4>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Dashboard</a></li>
-                <li class="nav-item mb-2"><a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Categories</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Users</a></li>
-            </ul>
-        </div>
+            <div class="text-white p-3 sidebar">
+                <h4 class="mb-4">Manage</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.index') }}" class="nav-link text-white">Dashboard</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.categories.index') }}" class="nav-link text-white">Categories</a>
+                    </li>
 
+                    {{-- If the user is an admin, show the Users link --}}
+                    @if(Auth::user()->role === 'admin')
+                        <li class="nav-item mb-2">
+                            <a href="{{ route('admin.users') }}" class="nav-link text-white">Users</a>
+                        </li>
+                    @endif            
+                </ul>
+            </div>
         <!-- ================================================
              MAIN CONTENT AREA
              ================================================ -->

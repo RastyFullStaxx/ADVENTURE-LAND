@@ -32,14 +32,22 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // ==========================================================
-// DASHBOARD (Authenticated Users Only)
+// DASHBOARD - REDIRECT TO ADMIN (for logged in users)
 // ==========================================================
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (auth()->check()) {
+        // Check if user has admin role, redirect to admin panel
+        if (auth()->user()->role === 'admin' || auth()->user()->role === 'product-manager') {
+            return redirect()->route('admin.index');
+        }
+        // For regular users, you can create a different dashboard or redirect to home
+        return redirect()->route('home');
+    }
+    return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // ==========================================================
-// AUTH ROUTES
+// AUTH ROUTES (for regular users)
 // ==========================================================
 Route::middleware('auth')->group(function () {
 
@@ -48,10 +56,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Product CRUD (non-admin version)
+    // Product CRUD (non-admin version) - only for regular users
     Route::resource('products', ProductController::class)->except(['show', 'index']);
 
-    // Category CRUD (non-admin version)
+    // Category CRUD (non-admin version) - only for regular users
     Route::resource('categories', CategoryController::class);
 
     // Order Management (optional/future)
@@ -67,22 +75,23 @@ Route::prefix('admin')
     ->middleware(['auth', RoleMiddleware::class . ':admin,product-manager'])
     ->group(function () {
 
-    // Admin Dashboard (admin only)
-    Route::get('/', [AdminController::class, 'index'])
-        ->name('index')
-        ->middleware(RoleMiddleware::class . ':admin');
+    // Admin Dashboard - accessible by both admin and product-manager
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
     // Product CRUD (admin + product-manager)
     Route::resource('products', AdminProductController::class)->except(['show']);
 
-    // Category CRUD (admin only)
-    Route::resource('categories', AdminCategoryController::class)
-        ->middleware(RoleMiddleware::class . ':admin');
+    // Category CRUD (admin + product-manager)
+    Route::resource('categories', AdminCategoryController::class);
+
+    // User management (admin only)
+    Route::get('/users', function() {
+        // Add user management logic here
+        return view('admin.users'); // You'll need to create this view
+    })->middleware(RoleMiddleware::class . ':admin')->name('users');
 
     // Other future admin-only routes can go here
 });
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-
-
+// Auth routes (includes login, register, etc.)
 require __DIR__.'/auth.php';

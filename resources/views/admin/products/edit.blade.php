@@ -36,11 +36,16 @@
         <textarea name="description" rows="3" class="form-control">{{ old('description', $product->description) }}</textarea>
     </div>
 
-    <!-- Price -->
-    <div class="col-md-4">
-        <label class="form-label fw-bold">Price (₱)</label>
-        <input type="number" name="price" class="form-control" step="0.01" value="{{ old('price', $product->price) }}" required>
-    </div>
+  <!-- Price (Admin Only) -->
+    @if(auth()->user()->role === 'admin')
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Price (₱)</label>
+            <input type="number" name="price" class="form-control" step="0.01" value="{{ old('price', $product->price) }}" required>
+        </div>
+    @else
+        <!-- Hidden field for product-manager to preserve existing price -->
+        <input type="hidden" name="price" value="{{ $product->price }}">
+    @endif
 
     <!-- Inventory -->
     <div class="col-md-4">
@@ -48,11 +53,16 @@
         <input type="number" name="inventory_quantity" class="form-control" value="{{ old('inventory_quantity', $product->inventory_quantity) }}" required>
     </div>
 
-    <!-- Extra Fee -->
-    <div class="col-md-4">
-        <label class="form-label fw-bold">Extra Fee (Optional)</label>
-        <input type="number" name="extra_fee" class="form-control" step="0.01" value="{{ old('extra_fee', $product->extra_fee) }}">
-    </div>
+    <!-- Extra Fee (Admin Only) -->
+    @if(auth()->user()->role === 'admin')
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Extra Fee (Optional)</label>
+            <input type="number" name="extra_fee" class="form-control" step="0.01" value="{{ old('extra_fee', $product->extra_fee) }}">
+        </div>
+    @else
+        <!-- Hidden field for product-manager to preserve existing extra fee -->
+        <input type="hidden" name="extra_fee" value="{{ $product->extra_fee }}">
+    @endif
 
     <!-- Dimensions -->
     <div class="col-md-6 {{ strtolower($product->category->name) === 'package' ? 'd-none' : '' }}" id="dimensionField">
