@@ -26,22 +26,23 @@
     <img src="{{ asset('images/imgMenuCloud.png') }}" class="menu-cloud">
     <img src="{{ asset('images/imgMenuClose.png') }}" alt="Close Menu" class="menu-close button-hover button-click">
     <div class="menu-links">
-        <a href="#playgrounds" class="menu-item">Playgrounds</a>
-        <a href="#slides" class="menu-item">Slides</a>
-        <a href="#climbs" class="menu-item">Climbs</a>
-        <a href="#ball-pits" class="menu-item">Ball Pits</a>
-        <a href="#packages" class="menu-item">Packages</a>
-        <a href="/aboutus" class="menu-item">About Us</a>
-        <a href="/safetyrules" class="menu-item">Safety Rules</a>
-        <a href="/faqs" class="menu-item">FAQs</a>
-        <a href="{{ route('login') }}" class="menu-item">Log In</a>
-        <img src="{{ asset('images/btnMenuContactUs.png') }}" class="menu-contact-btn button-hover button-click" alt="Contact Us">
+    <a href="#" class="menu-item">Playgrounds</a>
+    <a href="#" class="menu-item">Slides</a>
+    <a href="#" class="menu-item">Climbs</a>
+    <a href="#" class="menu-item">Ball Pits</a>
+    <a href="#" class="menu-item">Packages</a>
+    <a href="/aboutus" class="menu-item">About Us</a>
+    <a href="/safetyrules" class="menu-item">Safety Rules</a>
+    <a href="/faqs" class="menu-item">FAQs</a>
+    <a href="{{ route('login') }}" class="menu-item">Log In</a>
+<img src="{{ asset('images/btnMenuContactUs.png') }}" class="menu-contact-btn button-hover button-click" alt="Contact Us">
+
     </div>
 </div>
 
 <!-- MAIN CONTACT SECTION -->
 <main class="contact-section d-flex flex-column align-items-center justify-content-center text-center" style="padding-top: 100px; min-height: 100vh;">
-    <img src="{{ asset('images/imgContactUsHeader.png') }}" alt="Contact Us Header" class="img-fluid mb-4" style="max-width: 600px;">
+    <img src="{{ asset('images/imgContactUsHeader.png') }}" alt="Contact Us Header" class="img-fluid mb-4 contact-header-img">
 
     <!-- Contact Info Blocks -->
     <div class="d-flex flex-wrap justify-content-center gap-4 mb-4">
@@ -54,11 +55,11 @@
     <div class="d-flex justify-content-center gap-5">
         <div class="d-flex align-items-center gap-2">
             <img src="{{ asset('images/icoFacebook.png') }}" alt="Facebook" class="social-icon">
-            <span class="lilita" style="color: #0066CC; font-size: 1.2rem;">Kael's Adventure Land</span>
+            <a href="https://facebook.com" target="_blank" class="social-link">Kael's Adventure Land</a>
         </div>
         <div class="d-flex align-items-center gap-2">
             <img src="{{ asset('images/icoInstagram.png') }}" alt="Instagram" class="social-icon">
-            <span class="lilita" style="color: #0066CC; font-size: 1.2rem;">@kaelsadventureland</span>
+            <a href="https://instagram.com" target="_blank" class="social-link">@kaelsadventureland</a>
         </div>
     </div>
 </main>
@@ -66,20 +67,44 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    const header = document.getElementById('headerBar');
     const overlay = document.getElementById('menuOverlay');
     const menu = document.querySelector('.burger-menu');
     const close = document.querySelector('.menu-close');
     const contactBtn = document.querySelector('.menu-contact-btn');
 
+    // Open/Close Overlay
     menu.addEventListener('click', () => overlay.classList.add('show'));
     close.addEventListener('click', () => overlay.classList.remove('show'));
 
+    // Menu cloud item logic
+    document.querySelectorAll('#menuOverlay .menu-item').forEach(link => {
+        link.addEventListener('click', function (e) {
+            const text = this.textContent.trim().toLowerCase();
+            const isCategory = ['playgrounds', 'slides', 'climbs', 'ball pits', 'packages'].includes(text);
+
+            if (isCategory) {
+                e.preventDefault();
+                const slug = text.replace(/\s+/g, '-');
+                window.location.href = '/#' + slug;
+            } else if (text === 'about us') {
+                window.location.href = '/aboutus';
+            } else if (text === 'safety rules') {
+                window.location.href = '/safetyrules';
+            } else if (text === 'faqs') {
+                window.location.href = '/faqs';
+            }
+        });
+    });
+
+    // Contact Us Button
     if (contactBtn) {
         contactBtn.addEventListener('click', () => {
             window.location.href = '/contactus';
         });
     }
 
+    // Clipboard Copy SweetAlert
     document.querySelectorAll('.contact-box').forEach(box => {
         box.addEventListener('click', () => {
             const content = box.getAttribute('data-copy');
@@ -94,6 +119,30 @@
             });
         });
     });
+
+    // Idle Navbar Logic
+    let timeout;
+
+    function hideHeader() {
+        header.style.transform = 'translateY(-150%)';
+    }
+
+    function showHeader() {
+        header.style.transform = 'translateY(0)';
+    }
+
+    function resetIdleTimer() {
+        clearTimeout(timeout);
+        showHeader();
+        timeout = setTimeout(() => {
+            hideHeader();
+        }, 2000);
+    }
+
+    document.addEventListener('mousemove', resetIdleTimer);
+    document.addEventListener('scroll', resetIdleTimer);
+    resetIdleTimer();
 </script>
+
 </body>
 </html>

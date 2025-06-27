@@ -16,6 +16,13 @@
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
+#headerBar {
+    top: 30px; /* or 40px, 50px, etc. */
+    transition: transform 0.4s ease, top 0.4s ease;
+    transform: translateY(0);
+    z-index: 1050; /* Stay above content */
+}
+
 /***********************************************************************
  * CONTACT BOXES (Phone Numbers, Email)
  ***********************************************************************/
@@ -23,7 +30,7 @@
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
     border-radius: 20px;
-    max-width: 300px;
+    width: 500px;
 }
 
 .contact-box:hover {
@@ -41,6 +48,27 @@
 
 .lilita {
     font-family: 'Lilita One', cursive;
+}
+
+.contact-header-img {
+    max-width: 900px;
+    width: 100%;
+    height: auto;
+    margin-top: -90px;
+}
+
+/* 🎨 Nav logo size + spacing */
+#headerBar .nav-logo {
+    height: 90px;              /* Increase logo height */
+    margin-left: 6rem;         /* Add space from left edge */
+    margin-top: 0rem;         
+}
+
+/* 🍔 Burger menu size */
+#headerBar .burger-menu {
+    height: 70px;              /* Bigger burger icon */
+    margin-top: 0rem;  
+    margin-right: 3rem;  
 }
 
 /***********************************************************************
@@ -137,15 +165,13 @@
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* 🌀 Wiggle animation for main logo */
-@keyframes logoWiggle {
-    0%   { transform: rotate(0deg); }
-    15%  { transform: rotate(-3deg); }
-    30%  { transform: rotate(3deg); }
-    45%  { transform: rotate(-2deg); }
-    60%  { transform: rotate(2deg); }
-    75%  { transform: rotate(-1deg); }
-    100% { transform: rotate(0deg); }
+@keyframes floatCloud {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-60px); /* or -5px for subtler bounce */
+    }
 }
 
 /***********************************************************************
