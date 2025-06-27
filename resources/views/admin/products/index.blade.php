@@ -29,10 +29,14 @@
                     <th>Name</th>
                     <th>Category</th>
                     <th>Description</th>
-                    <th>Price (₱)</th>
+                    @if(auth()->user()->role !== 'product-manager')
+                        <th>Price (₱)</th>
+                    @endif
                     <th>Dimension / Units</th>
                     <th>Inventory</th>
-                    <th>Extra Fee</th>
+                    @if(auth()->user()->role !== 'product-manager')
+                        <th>Extra Fee</th>
+                    @endif
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -43,7 +47,9 @@
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>{{ Str::limit($product->description, 80) }}</td> {{-- Limit to 80 chars --}}
-                        <td>{{ number_format($product->price, 2) }}</td>
+                        @if(auth()->user()->role !== 'product-manager')
+                            <td>{{ number_format($product->price, 2) }}</td>
+                        @endif
                         <td>
                             @if($product->category->name === 'Package')
                                 {{ $product->units ?? '—' }}
@@ -52,7 +58,9 @@
                             @endif
                         </td>
                         <td>{{ $product->inventory_quantity }}</td>
-                        <td>{{ $product->extra_fee ? '₱' . number_format($product->extra_fee, 2) : 'None' }}</td>
+                        @if(auth()->user()->role !== 'product-manager')
+                            <td>{{ $product->extra_fee ? '₱' . number_format($product->extra_fee, 2) : 'None' }}</td>
+                        @endif
                         <td>
                             <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
@@ -68,7 +76,9 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="8">No products found.</td></tr>
+                    <tr>
+                        <td colspan="{{ auth()->user()->role !== 'product-manager' ? '9' : '7' }}">No products found.</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

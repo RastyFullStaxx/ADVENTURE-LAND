@@ -67,22 +67,17 @@ Route::prefix('admin')
     ->middleware(['auth', RoleMiddleware::class . ':admin,product-manager'])
     ->group(function () {
 
-    // Admin Dashboard (admin only)
-    Route::get('/', [AdminController::class, 'index'])
-        ->name('index')
-        ->middleware(RoleMiddleware::class . ':admin');
+    // Admin Dashboard - accessible by both admin and product-manager
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
     // Product CRUD (admin + product-manager)
     Route::resource('products', AdminProductController::class)->except(['show']);
 
-    // Category CRUD (admin only)
-    Route::resource('categories', AdminCategoryController::class)
-        ->middleware(RoleMiddleware::class . ':admin');
+    // Category CRUD (admin + product-manager)
+    Route::resource('categories', AdminCategoryController::class);
 
     // Other future admin-only routes can go here
 });
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-
-
+// Auth routes (includes login, register, etc.)
 require __DIR__.'/auth.php';
