@@ -1,0 +1,171 @@
+/***********************************************************************
+ * GENERAL STYLES
+ ***********************************************************************/
+ body {
+    font-family: 'Lilita One', cursive;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.contact-section h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/***********************************************************************
+ * CONTACT BOXES (Phone Numbers, Email)
+ ***********************************************************************/
+.contact-box {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    border-radius: 20px;
+    max-width: 300px;
+}
+
+.contact-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/***********************************************************************
+ * SOCIAL ICONS & TEXT
+ ***********************************************************************/
+.social-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.lilita {
+    font-family: 'Lilita One', cursive;
+}
+
+/***********************************************************************
+ * HAMBURGER SECTION
+ ***********************************************************************/
+
+ .menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100vw; /* Start hidden to right */
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size:22px;
+    transition: right 0.5s ease;
+}
+
+.menu-overlay.show {
+    right: 0;
+}
+
+.menu-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: auto;
+    z-index: 1;
+}
+
+.menu-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    height: 30px;
+    width: auto;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.menu-links {
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* Centers items inside the flex column */
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.menu-item {
+    color: #0074BC;
+    font-family: 'Lilita One', cursive;
+    font-size: 35px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.menu-item:hover {
+    transform: scale(1.1);
+}
+
+.menu-contact-btn {
+    margin-top: 40px;
+    width: 160px;
+    align-self: center;
+}
+
+.menu-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: calc(100vh + 60px);
+    width: 50vh;
+    z-index: 1;
+
+    animation: floatCloud 6s ease-in-out infinite;
+}
+
+.white-section {
+    background-color: #FFFFFF;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 🌀 Wiggle animation for main logo */
+@keyframes logoWiggle {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(-3deg); }
+    30%  { transform: rotate(3deg); }
+    45%  { transform: rotate(-2deg); }
+    60%  { transform: rotate(2deg); }
+    75%  { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/***********************************************************************
+ * RESPONSIVE ADJUSTMENTS
+ ***********************************************************************/
+@media (max-width: 768px) {
+    .contact-section h1 {
+        font-size: 2rem;
+    }
+
+    .contact-box {
+        max-width: 90%;
+    }
+
+    .social-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .menu-item {
+        font-size: 1.25rem;
+    }
+}
