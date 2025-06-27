@@ -50,8 +50,8 @@
                     else hide it
                  --}}
                 @if(Auth::user()->role === 'admin')
-                    <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Users</a></li>
-                @endif  
+                    <li class="nav-item mb-2"><a href="{{ route('admin.users.index') }}" class="nav-link text-white">Users</a></li>
+                @endif
             </ul>
         </div>
 

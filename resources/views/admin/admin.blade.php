@@ -69,7 +69,7 @@
                     {{-- If the user is an admin, show the Users link --}}
                     @if(Auth::user()->role === 'admin')
                         <li class="nav-item mb-2">
-                            <a href="{{ route('admin.users') }}" class="nav-link text-white">Users</a>
+                            <a href="{{ route('admin.users.index') }}" class="nav-link text-white">Users</a>
                         </li>
                     @endif            
                 </ul>
