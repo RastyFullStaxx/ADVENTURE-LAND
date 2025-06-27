@@ -52,15 +52,17 @@
         <!-- ================================================
              SIDEBAR
              ================================================ -->
-        <div class="text-white p-3 sidebar">
-            <h4 class="mb-4">Manage</h4>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Dashboard</a></li>
-                <li class="nav-item mb-2"><a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Categories</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Users</a></li>
-            </ul>
-        </div>
+             <div class="text-white p-3 sidebar">
+                <h4 class="mb-4">Manage</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link text-white">Dashboard</a></li>
+                    <li class="nav-item mb-2"><a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a></li>
+                    <li class="nav-item mb-2"><a href="{{ route('admin.categories.index') }}" class="nav-link text-white">Categories</a></li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.users.index') }}" class="nav-link text-white">Users</a>
+                    </li>
+                </ul>
+            </div>
 
         <!-- ================================================
              MAIN CONTENT AREA
