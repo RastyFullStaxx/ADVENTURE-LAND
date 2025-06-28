@@ -44,7 +44,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $styleConfig = [
-            'Playgrounds' => ['main' => '#0066CC', 'secondary' => '#DAECFF'],
+            'Playgrounds' => ['main' => '#99CCFF', 'secondary' => '#DAECFF'],
             'Slides'      => ['main' => '#8BC43F', 'secondary' => '#EAFFCF'],
             'Climbs'      => ['main' => '#EF4445', 'secondary' => '#FFD7D7'],
             'Ball Pits'   => ['main' => '#FF9900', 'secondary' => '#FFEBCD'],
@@ -61,7 +61,6 @@ class ProductController extends Controller
             'Dedicated staff available for setup & assistance',
         ];
 
-        // ➕ Get all products in order
         $products = Product::orderBy('id')->get();
         $currentIndex = $products->search(fn($p) => $p->id === $product->id);
 
@@ -82,6 +81,7 @@ class ProductController extends Controller
             'nextProduct' => $nextProduct,
         ]);
     }
+
 
     public function redirectToFirstProduct($slug)
     {

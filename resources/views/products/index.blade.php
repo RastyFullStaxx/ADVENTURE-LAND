@@ -33,7 +33,15 @@
                         <div class="card-body">
                             <h5 class="card-title lilita text-dark">{{ $product->name }}</h5>
                             <p class="fw-bold text-dark">PHP {{ number_format($product->price) }}</p>
-                            <a href="#" class="btn btn-outline-dark btn-sm fw-bold">View Details</a>
+                            <a href="{{ route('products.show', $product->id) }}"
+                                class="btn fw-bold"
+                                style="
+                                    background-color: {{ $colorMap[$category->name] }};
+                                    color: white;
+                                    border: 2px solid {{ $colorMap[$category->name] }};
+                                ">
+                                View Details
+                                </a>
                         </div>
                     </div>
                 </div>

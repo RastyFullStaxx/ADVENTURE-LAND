@@ -9,21 +9,31 @@
     <!-- Google Font: Lilita One -->
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 💡 Define the dynamic color variables from controller -->
+    <style>
+        :root {
+            --main-color: {{ $mainColor }} !important;
+            --accent-color: {{ $secondaryColor }} !important;
+        }
+    </style>
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/details.css') }}" rel="stylesheet">
 
-    <style>
-        :root {
-            --main-color: {{ $mainColor }};
-            --accent-color: {{ $secondaryColor }};
-        }
-    </style>
+<style>
+    :root {
+        --main-color: {{ $mainColor }};
+        --accent-color: {{ $secondaryColor }};
+    }
+</style>
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="details-page">
+
 <div class="details-fullscreen">
 
     {{-- LEFT COLUMN --}}

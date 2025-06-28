@@ -23,20 +23,19 @@
 
 <!-- MENU OVERLAY -->
 <div id="menuOverlay" class="menu-overlay">
-    <img src="{{ asset('images/imgMenuCloud.png') }}" class="menu-cloud">
-    <img src="{{ asset('images/imgMenuClose.png') }}" alt="Close Menu" class="menu-close button-hover button-click">
-    <div class="menu-links">
-    <a href="#" class="menu-item">Playgrounds</a>
-    <a href="#" class="menu-item">Slides</a>
-    <a href="#" class="menu-item">Climbs</a>
-    <a href="#" class="menu-item">Ball Pits</a>
-    <a href="#" class="menu-item">Packages</a>
-    <a href="/aboutus" class="menu-item">About Us</a>
-    <a href="/safetyrules" class="menu-item">Safety Rules</a>
-    <a href="/faqs" class="menu-item">FAQs</a>
-    <a href="{{ route('login') }}" class="menu-item">Log In</a>
-<img src="{{ asset('images/btnMenuContactUs.png') }}" class="menu-contact-btn button-hover button-click" alt="Contact Us">
-
+        <img src="{{ asset('images/imgMenuCloud.png') }}" class="menu-cloud">
+        <img src="{{ asset('images/imgMenuClose.png') }}" alt="Close Menu" class="menu-close button-hover button-click">
+        <div class="menu-links">
+            <a href="{{ route('home') }}" class="menu-item">Home</a>
+            @foreach($categories as $category)
+                <a href="{{ route('home') }}#{{ $category->slug }}" class="menu-item">{{ $category->name }}</a>
+            @endforeach
+            <a href="#" class="menu-item">About Us</a>
+            <a href="#" class="menu-item">Safety Rules</a>
+            <a href="#" class="menu-item">FAQs</a>
+            <a href="{{ route('login') }}" class="menu-item">Log In</a>
+            <img src="{{ asset('images/btnMenuContactUs.png') }}" class="menu-contact-btn button-hover button-click" alt="Contact Us">
+        </div>
     </div>
 </div>
 

@@ -19,6 +19,50 @@
     </style>
 </head>
 <body>
+<<<<<<< Updated upstream
+=======
+@php
+    use Illuminate\Support\Str;
+
+    $colorMap = [
+        'Playgrounds' => ['main' => '#0066CC', 'secondary' => '#DAECFF'],
+        'Slides'      => ['main' => '#8BC43F', 'secondary' => '#EAFFCF'],
+        'Climbs'      => ['main' => '#EF4445', 'secondary' => '#FFD7D7'],
+        'Ball Pits'   => ['main' => '#FF9900', 'secondary' => '#FFEBCD'],
+        'Packages'    => ['main' => '#FF0099', 'secondary' => '#FFDCF1'],
+    ];
+
+    $styleConfigs = [];
+    foreach($categories as $category) {
+        if (isset($colorMap[$category->name])) {
+            $styleConfigs[$category->name] = $colorMap[$category->name];
+        } else {
+            // Default black & white theme for new categories
+            $styleConfigs[$category->name] = [
+                'main' => '#000000',
+                'secondary' => '#FFFFFF'
+            ];
+        }
+    }
+@endphp
+
+    <style>
+        @foreach($styleConfigs as $categoryName => $colors)
+            @php
+                $cssClass = strtolower(str_replace([' ', '-'], '', $categoryName));
+            @endphp
+            .menu-tab.{{ $cssClass }}.active {
+                background-color: {{ $colors['main'] }} !important;
+                color: white !important;
+                border-color: {{ $colors['main'] }} !important;
+            }
+
+            .menu-tab.{{ $cssClass }}.active small {
+                color: white !important;
+            }
+        @endforeach
+    </style>
+>>>>>>> Stashed changes
 
     <!-- Overlay -->
     <div id="pageIntroOverlay"></div>
@@ -53,11 +97,18 @@
         <img src="{{ asset('images/imgMenuCloud.png') }}" class="menu-cloud">
         <img src="{{ asset('images/imgMenuClose.png') }}" alt="Close Menu" class="menu-close button-hover button-click">
         <div class="menu-links">
+<<<<<<< Updated upstream
             <a href="#playgrounds" class="menu-item">Playgrounds</a>
             <a href="#slides" class="menu-item">Slides</a>
             <a href="#climbs" class="menu-item">Climbs</a>
             <a href="#ball-pits" class="menu-item">Ball Pits</a>
             <a href="#packages" class="menu-item">Packages</a>
+=======
+            <a href="{{ route('home') }}" class="menu-item">Home</a>
+            @foreach($categories as $category)
+                <a href="{{ route('home') }}#{{ $category->slug }}" class="menu-item">{{ $category->name }}</a>
+            @endforeach
+>>>>>>> Stashed changes
             <a href="#" class="menu-item">About Us</a>
             <a href="#" class="menu-item">Safety Rules</a>
             <a href="#" class="menu-item">FAQs</a>
@@ -98,6 +149,10 @@
     </section>
 
     <!-- CATEGORY PRODUCT GRID SECTION -->
+<<<<<<< Updated upstream
+=======
+@foreach($categories as $index => $category)
+>>>>>>> Stashed changes
     @php
         use Illuminate\Support\Str;
 

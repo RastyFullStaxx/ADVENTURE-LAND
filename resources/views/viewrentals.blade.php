@@ -53,11 +53,10 @@
         <img src="{{ asset('images/imgMenuCloud.png') }}" class="menu-cloud">
         <img src="{{ asset('images/imgMenuClose.png') }}" alt="Close Menu" class="menu-close button-hover button-click">
         <div class="menu-links">
-            <a href="#playgrounds" class="menu-item">Playgrounds</a>
-            <a href="#slides" class="menu-item">Slides</a>
-            <a href="#climbs" class="menu-item">Climbs</a>
-            <a href="#ball-pits" class="menu-item">Ball Pits</a>
-            <a href="#packages" class="menu-item">Packages</a>
+            <a href="{{ route('home') }}" class="menu-item">Home</a>
+            @foreach($categories as $category)
+                <a href="{{ route('home') }}#{{ $category->slug }}" class="menu-item">{{ $category->name }}</a>
+            @endforeach
             <a href="#" class="menu-item">About Us</a>
             <a href="#" class="menu-item">Safety Rules</a>
             <a href="#" class="menu-item">FAQs</a>
