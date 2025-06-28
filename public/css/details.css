@@ -366,5 +366,11 @@ body.details-page {
     opacity: 0.6; /* optional visual cue */
 }
 
-
+/* 👉 Click: quick press animation */
+.button-click {
+    transition: transform 0.05s ease;
+}
+.button-click:active {
+    transform: scale(0.94);
+}
 
