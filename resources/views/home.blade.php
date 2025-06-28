@@ -19,8 +19,6 @@
     </style>
 </head>
 <body>
-<<<<<<< Updated upstream
-=======
 @php
     use Illuminate\Support\Str;
 
@@ -62,7 +60,6 @@
             }
         @endforeach
     </style>
->>>>>>> Stashed changes
 
     <!-- Overlay -->
     <div id="pageIntroOverlay"></div>
