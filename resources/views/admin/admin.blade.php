@@ -71,14 +71,23 @@
             </h2>
 
             @if(Auth::user()->role === 'new')
-                <div class="text-center mt-5">
-                    <div class="card mx-auto shadow" style="max-width: 500px;">
-                        <div class="card-body py-5">
-                            <div class="mb-3">
-                                <i class="fas fa-clock text-warning" style="font-size: 3rem;"></i>
+                <div class="text-center my-5">
+                    <div class="card mx-auto shadow rounded-4 border-0" 
+                        style="max-width: 520px; background: linear-gradient(to bottom, #DAECFF, #ffffff); padding: 2rem;">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <img src="{{ asset('images/imgMainLogo.png') }}" alt="Waiting Cloud"
+                                    style="width: 250px;" class="mb-2 cloud-bounce-soft">
+                                <h2 class="lilita text-primary" style="color: #0074BC;">Hang Tight!</h2>
                             </div>
-                            <h4 class="text-muted mb-3">Account Pending</h4>
-                            <p class="text-muted">Please wait for the admin to assign you a role to access the dashboard features.</p>
+
+                            <p class="lead text-dark mb-4" style="font-weight: 500;">
+                                Your admin account is still being reviewed.
+                            </p>
+
+                            <p class="text-muted">
+                                Please wait while our admin assigns your role. You’ll gain access to dashboard features once approved!
+                            </p>
                         </div>
                     </div>
                 </div>
