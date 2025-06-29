@@ -33,16 +33,18 @@
                     <li class="nav-item mb-2">
                         <a href="{{ route('admin.index') }}" class="nav-link text-white">Dashboard</a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="{{ route('admin.categories.index') }}" class="nav-link text-white">Categories</a>
-                    </li>
-                    @if(Auth::user()->role === 'admin')
+                    @if(Auth::user()->role !== 'new')
                         <li class="nav-item mb-2">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link text-white">Users</a>
+                            <a href="{{ route('admin.products.index') }}" class="nav-link text-white">Products</a>
                         </li>
+                        <li class="nav-item mb-2">
+                            <a href="{{ route('admin.categories.index') }}" class="nav-link text-white">Categories</a>
+                        </li>
+                        @if(Auth::user()->role === 'admin')
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('admin.users.index') }}" class="nav-link text-white">Users</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
             </div>
@@ -68,64 +70,78 @@
                 Welcome, {{ Auth::user()->name }}!
             </h2>
 
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="card text-white bg-primary h-100 shadow">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Products</h5>
-                            <p class="display-6 fw-bold">{{ $productCount }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-white bg-success h-100 shadow">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Categories</h5>
-                            <p class="display-6 fw-bold">{{ $categoryCount }}</p>
-                        </div>
-                    </div>
-                </div>
-                @if(Auth::user()->role === 'admin')
-                <div class="col-md-4">
-                    <div class="card text-white bg-warning h-100 shadow">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Users</h5>
-                            <p class="display-6 fw-bold">{{ $userCount }}</p>
-                        </div>
-                    </div>
-                </div>
-                @endif
-            </div>
-
-            <div class="card shadow mb-4">
-                <div class="card-header bg-info text-white fw-semibold">
-                    Activity Log
-                </div>
-                <ul class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
-                    @forelse($activityLogs as $log)
-                        <li class="list-group-item">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <strong>{{ $log->user->name }}</strong> 
-                                    {{ strtolower($log->action) }} 
-                                    <span class="text-muted">({{ $log->subject_type }} ID: {{ $log->subject_id }})</span>
-                                </div>
-                                <small class="text-muted">{{ $log->created_at->diffForHumans() }}</small>
+            @if(Auth::user()->role === 'new')
+                <div class="text-center mt-5">
+                    <div class="card mx-auto shadow" style="max-width: 500px;">
+                        <div class="card-body py-5">
+                            <div class="mb-3">
+                                <i class="fas fa-clock text-warning" style="font-size: 3rem;"></i>
                             </div>
-                        </li>
-                    @empty
-                        <li class="list-group-item text-muted">No recent activity.</li>
-                    @endforelse
-                </ul>
-            </div>
+                            <h4 class="text-muted mb-3">Account Pending</h4>
+                            <p class="text-muted">Please wait for the admin to assign you a role to access the dashboard features.</p>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary h-100 shadow">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Products</h5>
+                                <p class="display-6 fw-bold">{{ $productCount }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-success h-100 shadow">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Categories</h5>
+                                <p class="display-6 fw-bold">{{ $categoryCount }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @if(Auth::user()->role === 'admin')
+                    <div class="col-md-4">
+                        <div class="card text-white bg-warning h-100 shadow">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Users</h5>
+                                <p class="display-6 fw-bold">{{ $userCount }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
 
-            <div class="text-center" style="margin-top: 4rem;">
-                <a href="{{ route('admin.products.create') }}" class="btn btn-success me-2">+ Add Product</a>
-                <a href="{{ route('admin.categories.create') }}" class="btn btn-primary me-2">+ Add Category</a>
-                @if(Auth::user()->role === 'admin')
-                    <a href="{{ route('admin.users.create') }}" class="btn btn-warning">+ Add User</a>
-                @endif
-            </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-info text-white fw-semibold">
+                        Activity Log
+                    </div>
+                    <ul class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
+                        @forelse($activityLogs as $log)
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <strong>{{ $log->user->name }}</strong> 
+                                        {{ strtolower($log->action) }} 
+                                        <span class="text-muted">({{ $log->subject_type }} ID: {{ $log->subject_id }})</span>
+                                    </div>
+                                    <small class="text-muted">{{ $log->created_at->diffForHumans() }}</small>
+                                </div>
+                            </li>
+                        @empty
+                            <li class="list-group-item text-muted">No recent activity.</li>
+                        @endforelse
+                    </ul>
+                </div>
+
+                <div class="text-center" style="margin-top: 4rem;">
+                    <a href="{{ route('admin.products.create') }}" class="btn btn-success me-2">+ Add Product</a>
+                    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary me-2">+ Add Category</a>
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-warning">+ Add User</a>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 

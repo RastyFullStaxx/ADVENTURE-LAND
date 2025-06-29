@@ -53,7 +53,7 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 Route::get('/dashboard', function () {
     if (auth()->check()) {
         // Check if user has admin role, redirect to admin panel
-        if (auth()->user()->role === 'admin' || auth()->user()->role === 'product-manager') {
+        if (auth()->user()->role === 'admin' || auth()->user()->role === 'product-manager' || auth()->user()->role === 'new') {
             return redirect()->route('admin.index');
         }
         // For regular users, you can create a different dashboard or redirect to home
@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')
     ->name('admin.')
-    ->middleware(['auth', RoleMiddleware::class . ':admin,product-manager'])
+    ->middleware(['auth', RoleMiddleware::class . ':admin,product-manager,new'])
     ->group(function () {
 
     // Admin Dashboard - accessible by both admin and product-manager

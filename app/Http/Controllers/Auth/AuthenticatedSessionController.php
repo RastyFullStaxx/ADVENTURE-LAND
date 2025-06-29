@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         // Redirect based on user role
         $user = Auth::user();
-        if ($user->role === 'admin' || $user->role === 'product-manager') {
+        if ($user->role === 'admin' || $user->role === 'product-manager' || $user->role === 'new') {
             return redirect()->intended(route('admin.index', absolute: false));
         }
 

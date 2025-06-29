@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->role === 'product-manager';
     }
+
+    public function isNewUser(): bool
+    {
+        return $this->role === 'new';
+    }
 }
