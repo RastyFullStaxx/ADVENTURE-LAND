@@ -40,7 +40,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <span class="badge px-3 py-2 {{ $user->role === 'admin' ? 'bg-danger' : 'bg-info text-dark' }}">
+                        <span class="badge px-3 py-2 {{ $user->role === 'admin' ? 'bg-danger' : ($user->role === 'product-manager' ? 'bg-info text-dark' : ($user->role === 'new' ? 'bg-warning text-dark' : 'bg-info text-dark')) }}">
                             {{ ucfirst(str_replace('-', ' ', $user->role)) }}
                         </span>
                     </td>
