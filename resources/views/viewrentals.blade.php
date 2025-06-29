@@ -20,6 +20,51 @@
 </head>
 <body>
 
+@php
+
+    $colorMap = [
+        'Playgrounds' => ['main' => '#0066CC', 'secondary' => '#DAECFF'],
+        'Slides'      => ['main' => '#8BC43F', 'secondary' => '#EAFFCF'],
+        'Climbs'      => ['main' => '#EF4445', 'secondary' => '#FFD7D7'],
+        'Ball Pits'   => ['main' => '#FF9900', 'secondary' => '#FFEBCD'],
+        'Packages'    => ['main' => '#FF0099', 'secondary' => '#FFDCF1'],
+    ];
+
+    $styleConfigs = [];
+    foreach($categories as $category) {
+        if (isset($colorMap[$category->name])) {
+            $styleConfigs[$category->name] = $colorMap[$category->name];
+        } else {
+            // Default black & white theme for new categories
+            $styleConfigs[$category->name] = [
+                'main' => '#000000',
+                'secondary' => '#FFFFFF'
+            ];
+        }
+    }
+@endphp
+
+    <style>
+        @foreach($styleConfigs as $categoryName => $colors)
+            @php
+                $cssClass = strtolower(str_replace([' ', '-'], '', $categoryName));
+            @endphp
+            .menu-tab.{{ $cssClass }}.active {
+                background-color: {{ $colors['main'] }} !important;
+                color: white !important;
+                border-color: {{ $colors['main'] }} !important;
+            }
+
+            .menu-tab.{{ $cssClass }}.active small {
+                color: white !important;
+            }
+        @endforeach
+    </style>
+
+    <div class="text-center mt-5 pt-5">
+        <img src="{{ asset('images/imgViewRentalsHeader.png') }}" alt="View Rentals Header" class="img-fluid" style="max-width: 1000px; width: 90%; margin-top: 200px; margin-bottom: -300px">
+    </div>
+
     <!-- Overlay -->
     <div id="pageIntroOverlay"></div>
 
@@ -67,90 +112,82 @@
 
     <!-- WHITE SECTION WITH TAGLINE AND MENU -->
     <section class="white-section text-center py-5 px-3">
-        {{-- <p class="lead lilita text-dark mb-3" style="font-size: 1.5rem;">
+        <p class="lead lilita text-dark mb-3" style="font-size: 1.5rem;">
             Jump, Slide, and Climb. Adventure Delivered to Your Doorstep!
-        </p> --}}
+        </p>
+        <a href="{{ route('viewrentals') }}">
+            <img src="{{ asset('images/btnViewRentals.png') }}" alt="View Rentals"
+                class="mb-4 button-hover button-click"
+                style="cursor: pointer; width: 240px; max-width: 100%;">
+        </a>
 
-        {{-- <img src="{{ asset('images/btnViewRentals.png') }}" alt="View Rentals"
-             class="mb-4 button-hover button-click"
-             style="cursor: pointer; width: 240px; max-width: 100%;"> --}}
 
         <div class="d-flex justify-content-center flex-wrap gap-3">
-            <a href="#playgrounds" class="btn menu-tab playgrounds lilita active">
-                Playgrounds<br><small>Perfect for jumping & interactive play</small>
-            </a>
-            <a href="#slides" class="btn menu-tab slides lilita">
-                Slides<br><small>Perfect for sliding</small>
-            </a>
-            <a href="#climbs" class="btn menu-tab climbs lilita">
-                Climbs<br><small>Perfect for climbing</small>
-            </a>
-            <a href="#ball-pits" class="btn menu-tab ballpits lilita">
-                Ball Pits<br><small>Perfect for diving into soft fun</small>
-            </a>
-            <a href="#packages" class="btn menu-tab packages lilita">
-                Packages<br><small>Perfect for event bundles</small>
-            </a>
+            @foreach($categories as $index => $category)
+                @php
+                    // Convert category name to proper CSS class name
+                    $cssClassName = strtolower(str_replace([' ', '-'], '', $category->name));
+                    // Special handling for specific cases if needed
+                    if ($category->name === 'Ball Pits') {
+                        $cssClassName = 'ballpits';
+                    }
+                @endphp
+                <a href="#{{ $category->slug }}" 
+                class="btn menu-tab {{ $cssClassName }} lilita {{ $index === 0 ? 'active' : '' }}"
+                data-category="{{ $category->slug }}"
+                data-main-color="{{ $styleConfigs[$category->name]['main'] }}"
+                data-secondary-color="{{ $styleConfigs[$category->name]['secondary'] }}">
+                    {{ $category->name }}<br>
+                    <small>{{ $category->description ?? 'Perfect for ' . strtolower($category->name) }}</small>
+                </a>
+            @endforeach
         </div>
     </section>
 
+
     <!-- CATEGORY PRODUCT GRID SECTION -->
-    @php
-        use Illuminate\Support\Str;
-
-        $colorMap = [
-            'Playgrounds' => '#99CCFF',
-            'Slides' => '#8BC43F',
-            'Climbs' => '#EF4445',
-            'Ball Pits' => '#FF9900',
-            'Packages' => '#FF0099',
-        ];
-    @endphp
-
-    @foreach($categories as $category)
+    @foreach($categories as $index => $category)
         @php
-            // Strictly filter only 'simple' images for Packages
+
+            // Color map for default categories
+            $colorMap = [
+                'Playgrounds' => ['main' => '#0066CC', 'secondary' => '#DAECFF'],
+                'Slides'      => ['main' => '#8BC43F', 'secondary' => '#EAFFCF'],
+                'Climbs'      => ['main' => '#EF4445', 'secondary' => '#FFD7D7'],
+                'Ball Pits'   => ['main' => '#FF9900', 'secondary' => '#FFEBCD'],
+                'Packages'    => ['main' => '#FF0099', 'secondary' => '#FFDCF1'],
+            ];
+
+            // Use black/white as fallback
+            $mainColor = $colorMap[$category->name]['main'] ?? '#000';
+            $secondaryColor = $colorMap[$category->name]['secondary'] ?? '#FFF';
+
+            // Filter 'simple' images for Packages
             if ($category->name === 'Packages') {
                 $category->products = $category->products->filter(function ($product) {
                     return Str::contains(Str::lower($product->image_path), 'simple');
                 });
 
-                // Skip section if no simple-package products remain
                 if ($category->products->isEmpty()) {
                     continue;
                 }
             }
+
+            $isActive = $loop->first ? 'active-category' : 'd-none';
         @endphp
 
-            <section class="py-5 white-section category-section {{ $category->name === 'Playgrounds' ? 'active-category' : 'd-none' }}"
-            id="{{ Str::slug($category->name) }}">
-                <div class="container">
-                    <div class="text-center mb-4">
-                        <h2 class="lilita" style="color: {{ $colorMap[$category->name] ?? '#333' }}; font-size:60px;">
-                            {{ $category->name }}
-                        </h2>
-                    </div>
+        <section class="py-5 white-section category-section {{ $isActive }}" id="{{ Str::slug($category->name) }}">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2 class="lilita" style="color: {{ $mainColor }}; font-size:60px;">
+                        {{ $category->name }}
+                    </h2>
+                </div>
 
-                    <div class="row justify-content-center">
-                    @php
-                        $styleConfig = [
-                            'Playgrounds' => ['main' => '#0066CC', 'secondary' => '#DAECFF'],
-                            'Slides' => ['main' => '#8BC43F', 'secondary' => '#EAFFCF'],
-                            'Climbs' => ['main' => '#EF4445', 'secondary' => '#FFD7D7'],
-                            'Ball Pits' => ['main' => '#FF9900', 'secondary' => '#FFEBCD'],
-                            'Packages' => ['main' => '#FF0099', 'secondary' => '#FFDCF1'],
-                        ];
-                    @endphp
-
+                <div class="row justify-content-center">
                     @foreach($category->products as $product)
-                        @php
-                            $mainColor = $styleConfig[$category->name]['main'];
-                            $secondaryColor = $styleConfig[$category->name]['secondary'];
-                        @endphp
-
                         <div class="col-md-4 col-sm-6 mb-4">
                             <div class="card h-100 border-0 shadow rounded-4 overflow-hidden">
-
                                 <!-- Upper half - image section -->
                                 <div class="p-3 d-flex align-items-center justify-content-center image-section"
                                     style="background-color: {{ $secondaryColor }}; height: 220px;">
@@ -162,7 +199,9 @@
                                 <!-- Lower half - info section -->
                                 <div class="text-center p-3 d-flex flex-column justify-content-between info-section"
                                     style="background-color: {{ $mainColor }};">
-                                    <h5 class="lilita text-white mb-1" style="margin-bottom: 10px !important; font-size: 2rem;">{{ $product->name }}</h5>
+                                    <h5 class="lilita text-white mb-1" style="margin-bottom: 10px !important; font-size: 2rem;">
+                                        {{ $product->name }}
+                                    </h5>
 
                                     <div class="d-grid gap-2">
                                         <!-- Price -->
@@ -187,25 +226,24 @@
 
                                         <!-- View Details -->
                                         <a href="{{ route('products.show', $product->id) }}"
-                                        class="btn fw-bold"
-                                        style="
-                                            background-color: {{ $secondaryColor }};
-                                            color: {{ $mainColor }};
-                                            border: 5px solid {{ $secondaryColor }};
-                                            padding-top: 2px;
-                                            margin-bottom: 3px;
-                                            border-top-left-radius: 0;
-                                            border-top-right-radius: 0;
-                                            border-bottom-left-radius: 25px;
-                                            border-bottom-right-radius: 25px;
-                                            font-size: 1.2rem;
-                                            font-family: 'Lilita One', cursive;
-                                        ">
+                                            class="btn fw-bold"
+                                            style="
+                                                background-color: {{ $secondaryColor }};
+                                                color: {{ $mainColor }};
+                                                border: 5px solid {{ $secondaryColor }};
+                                                padding-top: 2px;
+                                                margin-bottom: 3px;
+                                                border-top-left-radius: 0;
+                                                border-top-right-radius: 0;
+                                                border-bottom-left-radius: 25px;
+                                                border-bottom-right-radius: 25px;
+                                                font-size: 1.2rem;
+                                                font-family: 'Lilita One', cursive;
+                                            ">
                                             View Details
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     @endforeach

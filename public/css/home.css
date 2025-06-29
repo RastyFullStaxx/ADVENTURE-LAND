@@ -561,6 +561,18 @@ body {
     transform: none;                   /* no movement */
 }
 
+/* Ensure entire card, including text, changes on hover */
+.faq-button:hover {
+    background-color: #71A4D7;         /* Your accent blue */
+    color: #FFFFFF !important;         /* Make button text white */
+}
+
+.faq-button:hover .faq-answer,
+.faq-button:hover .fw-bold {
+    color: #FFFFFF !important;         /* Make both question and answer white */
+}
+
+
 /***********************************************************************
  * STAR CLIENTS SECTION
  ***********************************************************************/
@@ -644,6 +656,16 @@ body {
     border-radius: 50%;
     padding: 10px;
 }
+
+.logo-link {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.logo-link:hover {
+    transform: scale(1.1) rotate(-2deg);
+}
+
 
 /***********************************************************************
  * FOOTER SECTION STYLES

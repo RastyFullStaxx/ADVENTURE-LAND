@@ -254,43 +254,49 @@
     </div>
 
     <!-- COMMON QUESTIONS SECTION -->
-    <section class="common-questions-section text-center py-5">
-        <div class="container">
+<section class="common-questions-section text-center py-5">
+    <div class="container">
 
-            <!-- Header Image -->
-            <div class="common-questions-header mb-3">
-                <img src="{{ asset('images/imgCommonQuestionsHeader.png') }}" alt="Common Questions Header" class="img-fluid">
-            </div>
-
-            <!-- Sub-links -->
-            <div class="common-questions-links mb-4">
-                <a href="#">View more FAQs</a>
-                <a href="#">Ask us anything</a>
-            </div>
-
-            <!-- FAQ Buttons in 2-per-row layout -->
-            <div class="row gx-4 gy-3 justify-content-center common-questions-buttons">
-                @php
-                    $questions = [
-                        'How do I book an inflatable?',
-                        'What happens if it rains?',
-                        'What areas do you service?',
-                        'How long is the rental duration?',
-                        'Do you require a deposit?',
-                        'Is there a delivery/setup fee?',
-                    ];
-                @endphp
-
-                @foreach($questions as $question)
-                    <div class="col-12 col-md-6">
-                        <button class="faq-button btn fw-bold w-100">
-                            {{ $question }}
-                        </button>
-                    </div>
-                @endforeach
-            </div>
+        <!-- Header Image -->
+        <div class="common-questions-header mb-3">
+            <img src="{{ asset('images/imgCommonQuestionsHeader.png') }}" alt="Common Questions Header" class="img-fluid">
         </div>
-    </section>
+
+        <!-- Sub-links -->
+        <div class="common-questions-links mb-4">
+            <a href="{{ route('faqs') }}">View more FAQs</a>
+            <a href="{{ route('contactus') }}">Ask us anything</a>
+        </div>
+
+        <!-- FAQ Cards (2 per row) -->
+        <div class="row gx-4 gy-3 justify-content-center common-questions-buttons">
+            @php
+                $faqs = [
+                    'How do I book an inflatable?' => 'To book, just head over to our Contact Us page or give us a quick call! We’ll check availability and help you confirm your reservation.',
+                    'What happens if it rains?' => 'We understand weather can be unpredictable. Contact us for rescheduling or weather policies.',
+                    'What areas do you service?' => 'We deliver across our service zones. If unsure, contact us and we’ll verify your area.',
+                    'How long is the rental duration?' => 'All our inflatables come with 4 hours of continuous playtime by default. You can extend for ₱1,000 per hour.',
+                    'Do you require a deposit?' => 'Yes, we require a ₱1,000 deposit to reserve your item. The rest is payable on the event day.',
+                    'Is there a delivery/setup fee?' => 'Delivery/setup is free within service areas. Outside areas may require a transport fee — we’ll confirm this with you.',
+                ];
+            @endphp
+
+            @foreach($faqs as $question => $answer)
+                <div class="col-12 col-md-6">
+                    <a href="{{ route('faqs') }}" class="text-decoration-none">
+                        <div class="faq-button text-start">
+                            <div class="fw-bold mb-2">{{ $question }}</div>
+                            <div class="faq-answer small" style="font-family: 'Jost', sans-serif; color: #333;">
+                                {{ $answer }}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 
     <!-- WHITE CLOUD DIVIDER -->                   
     <div class="cloud-divider">
