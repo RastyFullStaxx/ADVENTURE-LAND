@@ -11,9 +11,8 @@
         font-weight: bold;
         color: #ffffff;
         -webkit-text-stroke: 1.2px #0074BC;
-        text-shadow: 1px 1px 0 #004085;
-    ">
-        Manage Users
+        text-shadow: 1px 1px 0 #004085;">
+    Manage Users
 </h2>
 
 <div class="text-end mb-3 mt-4">
@@ -40,17 +39,36 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <span class="badge px-3 py-2 {{ $user->role === 'admin' ? 'bg-danger' : ($user->role === 'product-manager' ? 'bg-info text-dark' : ($user->role === 'new' ? 'bg-warning text-dark' : 'bg-info text-dark')) }}">
-                            {{ ucfirst(str_replace('-', ' ', $user->role)) }}
+                        @php
+                            $roleLabel = $user->role === 'new' ? 'User' : ucfirst(str_replace('-', ' ', $user->role));
+                            $badgeClass = match ($user->role) {
+                                'admin' => 'bg-danger',
+                                'product-manager' => 'bg-info text-dark',
+                                'new' => 'bg-success',
+                                default => 'bg-secondary'
+                            };
+                        @endphp
+
+                        <span class="badge px-3 py-2 {{ $badgeClass }}">
+                            {{ $roleLabel }}
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.users.edit', $user->id) }}"
-                           class="btn btn-sm btn-outline-primary rounded-pill mb-1">
-                            Edit
-                        </a>
+                        @if ($user->id === auth()->id())
+                            <span class="badge bg-secondary text-white px-3 py-2">Current User</span>
+                        @elseif ($user->role === 'admin')
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill mb-1" disabled title="You can't edit another admin">
+                                Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill" disabled title="You can't delete another admin">
+                                Delete
+                            </button>
+                        @else
+                            <a href="{{ route('admin.users.edit', $user->id) }}"
+                               class="btn btn-sm btn-outline-primary rounded-pill mb-1">
+                                Edit
+                            </a>
 
-                        @if($user->id !== auth()->id())
                             <button type="button"
                                     class="btn btn-sm btn-outline-danger rounded-pill"
                                     onclick="confirmDelete({{ $user->id }})">
@@ -63,8 +81,6 @@
                                 @csrf
                                 @method('DELETE')
                             </form>
-                        @else
-                            <span class="text-muted small">Current User</span>
                         @endif
                     </td>
                 </tr>
